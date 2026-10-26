@@ -1,0 +1,64 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <nav class="flexrow tabbed round" data-group="primary" id="bystander-tabs">
+    <ul>
+      {{#if isGM}}
+        <li data-tab="agency">GM</li>
+      {{/if}}
+      <li data-tab="bystander">{{localize "TYPES.Actor.Bystander"}}</li>
+    </ul>
+  </nav>
+
+  <div class="tab-content flexrow manilla-folder" style="height: {{#if showAgency}}420px{{else}}320px{{/if}}">
+    <div class="tab active" data-group="primary" data-tab="bystander">
+      <div style="display: grid; grid-template-columns: 160px auto; gap: 0">
+
+        <div>
+          <div class="paperclip">
+            <img src="systems/triangleagency/assets/ui/paperclip-red.png">
+          </div>
+          <div class="td" style="padding: 2px; width: 160px">
+            <div class="characterImage color-background-white"
+              style="display: flex; padding: 5px; border: 1px solid darkslategrey; width: 150px; height: 198px; justify-content: center; align-items: center;">
+              <img src="{{actor.img}}" data-edit="img" title="{{localize "TA.PictureOf"}} {{actor.name}}"
+                style="cursor: pointer; width: auto; height: auto; max-width: 138px; max-height: 185px; border: none"/>
+            </div>
+          </div>
+        </div>
+
+        <div dtyle="height: min-content;">
+          <div class="anomaly-right">
+            <div style="display: inline; overflow: hidden">
+              <input class="articulat-bold" id="bystander-name" name="name" type="text" value="{{actor.name}}" placeholder="Bystander name" style="font-size: 1.3em"/>
+            </div>
+
+            <div style="margin-top: 5px">
+              <textarea name="system.description" class="articulat" style="font-size: 10pt; height: 169px;" placeholder="{{localize "TA.Description"}}">{{system.description}}</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{#if showAgency}}
+      <div style="margin-top: 10px">
+        <fieldset class="agency">
+          <legend class="context-competency">{{localize "TA.AgencyNotes"}}</legend>
+          <div style="padding-top: 4px">
+            <textarea name="system.notes" class="articulat" style="font-size: 10pt; height: 153px;">{{system.notes}}</textarea>
+          </div>
+        </fieldset>
+      </div>
+      {{/if}}
+    </div>
+
+    <div class="tab notes" data-group="primary" data-tab="agency">
+      <div class="articulat" style="height: 99%; width: 100%;">
+        {{editor
+        system.gmnotes
+        target="system.gmnotes"
+        engine="prosemirror"
+        button=true
+        editable=true
+        }}
+      </div>
+    </div>
+  </div>
+</form>

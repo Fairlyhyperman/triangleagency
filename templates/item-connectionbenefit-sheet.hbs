@@ -1,0 +1,27 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <nav class="flexrow tabbed round" data-group="primary" id="connectionbenfit-tabs">
+    <ul>
+      <li data-tab="main">{{localize "TYPES.Item.ConnectionBenefit"}}</li>
+    </ul>
+  </nav>
+
+  <div class="tab-content flexrow manilla-folder">
+    <div class="tab active" data-group="primary" data-tab="main">
+      <div class="tab-workarea" style="font-size: 10pt">
+        <div style="font-size: 1.8em; width: 100%; display: flex">
+          <input name="name" type="text" value="{{item.name}}" placeholder="Benefit name"/>
+        </div>
+
+        <div style="height: 300px; width: 100%"">
+          {{editor
+          system.description
+          target="system.description"
+          engine="prosemirror"
+          button=true
+          editable=editable
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

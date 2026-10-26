@@ -1,0 +1,65 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <nav class="flexrow tabbed round" data-group="primary" id="reqisition-tabs">
+    <ul>
+      <li data-tab="main">{{localize "TYPES.Item.Requisition"}}</li>
+    </ul>
+  </nav>
+
+  <div class="tab-content flexrow manilla-folder">
+    <div class="tab active" data-group="primary" data-tab="main">
+      <div class="tab-workarea" style="font-size: 10pt">
+        <div style="font-size: 1.8em; width: 100%; display: flex">
+          <input name="name" type="text" value="{{item.name}}" placeholder="Requisition name" style="margin-right: 10px;"/>
+          <input name="system.reference" type="text" value="{{system.reference}}"
+            title="{{localize "TA.PlaywallReference"}}"
+            style="width: 50px; text-align: center; background-color: #C8202F; text-transform:uppercase; color: white"
+            oninput="this.value = this.value.toUpperCase();"
+          />
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; vertical-align: middle; font-size: 1.1em; margin-top: 6px">
+          <div>
+            <label class="articulat-bold" for="system.cost">
+              <img src="systems/triangleagency/assets/icons/commendation.png" style="vertical-align: middle; width: 15px"/> {{localize "TA.Requisition.Cost"}}
+            </label>
+            <input name="system.cost" type="number" value="{{system.cost}}"
+              min="0" max="999" maxLength="3"
+              style="width: 42px; text-align: left; border: none; background-color: white"
+              oninput="this.value=this.value.slice(0,this.maxLength)"
+              onmouseenter="this.focus()"
+              onmouseleave="this.blur()"
+            />
+          </div>
+          <div>
+            <label class="articulat-bold" for="system.missionUses">{{localize "TA.Requisition.MissionUses"}}</label>
+            {{#unless system.unlimited}}
+            <input name="system.missionUses" type="number" value="{{system.missionUses}}"
+              min="0" max="33" maxLength="2"
+              style="width: 42px; text-align: left; border: none; background-color: white"
+              oninput="this.value=this.value.slice(0,this.maxLength)"
+              onmouseenter="this.focus()"
+              onmouseleave="this.blur()"
+            />
+            {{/unless}}
+            <label for="unlimited" style="vertical-align: middle">
+              <input id="unlimited" type="checkbox" name="system.unlimited" {{checked system.unlimited}}
+                style="margin: -4px 0 0 0; vertical-align: middle; height: 10pt"
+              />
+              {{localize "TA.Requisition.Unlimited"}}
+            </label>
+          </div>
+        </div>
+
+        <div style="height: 425px; width: 100%">
+          {{editor
+          system.description
+          target="system.description"
+          engine="prosemirror"
+          button=true
+          editable=editable
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

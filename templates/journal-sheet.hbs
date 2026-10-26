@@ -1,0 +1,64 @@
+<div class="journal-sheet-container playwallJournal">
+  {{! Sidebar Container }}
+  <aside class="sidebar directory flexcol journal-sidebar {{sidebarClass}}">
+
+    {{! Sidebar Pages Navigation }}
+    <nav class="pages-list" aria-label="{{localize 'JOURNAL.NavLabel'}}" data-tooltip-direction="RIGHT">
+      <ol class="directory-list scrollable" style="border-right: 1px solid #C8202F">
+        {{#each toc as |page|}}
+        <li class="directory-item" data-page-id="{{page._id}}" style="border: none; margin-bottom: 2px; line-height: 25px;"> <!-- add  {{page.tocClass}} to class to enable levels //-->
+          <div class="page-heading">
+            {{#if page.system.code}}
+              <span class="color-background-{{page.system.aspect}}"
+                style="display: inline-block; width: 35px; margin-right: 6px; text-align: center; border-radius: 2px; color: white">{{page.system.code}}</span>
+            {{/if}}
+            <span class="page-title">
+              {{page.name}}
+            </span>
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+    </nav>
+
+    {{! Sidebar Control Buttons }}
+    <div class="action-buttons flexrow" style="border-right: 1px solid #C8202F">
+      {{#if isGM}}
+        {{#if showPlaywallButton}}
+          &nbsp;
+          <button class="create" type="button" data-action="createPlaywall">
+            <span class="color-red" style="margin-right: 4px; font-size: 12pt">&#9650;</span>{{localize "JOURNAL.AddPlaywall"}}
+          </button>
+          &nbsp;
+        {{/if}}
+      &nbsp;
+      <button class="create" type="button" data-action="createPage">
+        <i class="fa-solid fa-file-circle-plus"></i> {{localize "JOURNAL.AddPage"}}
+      </button>
+      &nbsp;
+      {{/if}}
+    </div>
+  </aside>
+
+  {{! Main Content }}
+  <section class="journal-entry-content flexcol displayarea" style="border: none; margin: 0; padding: 0">
+    <form class="journal-header" style="display: none">
+      <input class="title" name="name" type="text" value="{{document.name}}" placeholder="{{localize "
+        JOURNAL.EntryTitle"}}" />
+    </form>
+
+    <div class="journal-entry-pages {{cssClass}} {{viewMode.cls}}">
+      <div class="scrollable">
+        {{#each pages as |page|}}
+        <article class="journal-entry-page {{page.viewClass}}" data-page-id="{{page._id}}">
+          {{#if page.editable}}
+          <div class="edit-container">
+            <a class="editor-edit"><i class="fas fa-edit"></i></a>
+          </div>
+          {{/if}}
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+</div>

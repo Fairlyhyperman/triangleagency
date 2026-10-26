@@ -1,0 +1,35 @@
+<div style="margin-top: 2px">
+  {{#if primary.result.triscendence}}
+    <div class="isagency center">
+      {{{localize "TA.Agent.GainTricendenceMsg"}}}
+    </div>
+  {{/if}}
+
+  <div style="display: flex; justify-content: center; align-items: center">
+    <span title="{{localize "TA.Dialog.SkillCheck"}}">
+      <img src="systems/triangleagency/assets/icons/d20-outcome-{{primary.result.pip}}.png" style="width: 50px"/>
+    </span>
+  </div>    
+
+  <div style="margin-top: 5px"><span>{{{primary.result.message}}}</span></div>
+
+  {{#if primary.result.triscendence}}
+    <div style="margin-top: 8px">
+      {{{localize "TA.Agent.TricendenceOptionsLimited"}}}
+    </div>
+  {{/if}}
+
+  {{#if primary.result.chaos}}
+    <div class="center" style="border-top: 1px solid grey; margin-top: 6px; padding-top: 6px; font-size: 14pt">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 3px; align-items: center">
+        <img class="icon" src="systems/triangleagency/assets/icons/chaos.png"
+          style="width: 16px; justify-self: right; margin-top: -2.5px" title="{{localize "TA.chaos"}}"
+        />
+        <div style="justify-self: left">
+          {{primary.result.chaos}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
+
+</div>

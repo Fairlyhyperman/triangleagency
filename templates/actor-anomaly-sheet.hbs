@@ -1,0 +1,273 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <nav class="flexrow tabbed round" data-group="primary" id="anomaly-tabs">
+    <ul>
+      <li data-tab="notes">{{localize "TA.Notes"}}</li>
+      <li data-tab="chaos" style="{{#if (eq system.type "minor")}}display: none;{{/if}}">{{localize "TA.ChaosEffects"}}</li>
+      <li data-tab="anomaly">{{localize "TYPES.Actor.Anomaly"}}</li>
+    </ul>
+  </nav>
+
+  <div class="tab-content flexrow manilla-folder" style="height: 93%">
+      <div class="tab active" data-group="primary" data-tab="anomaly">
+        <div class="anomaly-container">
+
+          <div class="anomaly-image">
+            <div class="paperclip">
+              <img src="systems/triangleagency/assets/ui/paperclip-red.png">
+            </div>
+            <div class="td" style="padding: 2px; width: 160px">
+              <div class="characterImage color-background-white"
+                style="display: flex; padding: 5px; border: 1px solid darkslategrey; width: 150px; height: 198px; justify-content: center; align-items: center;">
+                <img src="{{actor.img}}" {{#if editable}}data-edit="img"{{/if}} title="{{localize "TA.PictureOf"}} {{actor.name}}"
+                  style="cursor: pointer; width: auto; height: auto; max-width: 138px; max-height: 185px; border: none"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="anomaly-right">
+            <div style="font-size: 1.8em; width: 100%; margin-bottom: 19px">
+              <div style="float: right; margin: 0; padding: 0">
+                {{#if editable}}
+                <div style="display: grid; grid-template-columns: auto auto; gap: 5px">
+                  <img class="AnomalyType" src="systems/triangleagency/assets/icons/anomaly-major{{type-major-status}}.png" data-type="major" title="{{localize "TYPES.Actor.Anomaly"}}" style="border: none; width: 20px; cursor: pointer"/>
+                  <img class="AnomalyType" src="systems/triangleagency/assets/icons/anomaly-minor{{type-minor-status}}.png" data-type="minor" title="{{localize "TA.MinorAnomaly"}}" style="border: none; width: 15px; cursor: pointer"/>
+                </div>
+                {{else}}
+                <img src="systems/triangleagency/assets/icons/anomaly-{{system.type}}-select.png" title="{{type-name}}"
+                  style="border: none; width: {{#if (eq system.type "major")}}20{{else}}15{{/if}}px;"/>
+                {{/if}}
+              </div>
+
+              <div style="display: inline; overflow: hidden; font-size: 1.1em">
+                {{#if editable}}
+                <input id="anomaly-name" name="name" type="text" value="{{actor.name}}" placeholder="Anomalous entity name" style="width: 550px"/>
+                {{else}}
+                <div style="margin: 1px 0 0 3px">{{actor.name}}</div>
+                {{/if}}
+
+                <div style="position: absolute; margin: -4px 0 0 0; font-size: 10pt;">
+                  <label style="display: block">
+                    <input name="system.hideName" type="checkbox" {{checked system.hideName}} style="height: 10pt; width: 10pt; vertical-align: middle; margin-right: 2px">
+                    <span style="vertical-align: middle">Hide Name in Chat</span>
+                  </label>
+                </div>
+
+                {{system.type-major-status}}
+              </div>
+            </div>
+
+            <div style="height: 160px">
+              {{#if (eq system.type "major")}}
+                <fieldset class="agency" style="height: 50%">
+                  <legend class="context-anomaly">{{localize "TA.AnomalyFocus"}}</legend>
+                  {{#if editable}}
+                  <textarea name="system.focus" style="height: 100%">{{system.focus}}</textarea>
+                  {{else}}
+                  <div style="padding: 2px; height: 100%; overflow: auto">
+                    {{{system.focus}}}
+                  </div>
+                  {{/if}}
+                </fieldset>
+
+                <fieldset class="agency" style="height: 50%; margin-top: 8px">
+                  <legend class="context-anomaly">{{localize "TA.AnomalyImpulse"}}</legend>
+                  {{#if editable}}
+                  <textarea name="system.impulse" style="height: 100%">{{system.impulse}}</textarea>
+                  {{else}}
+                  <div style="padding: 2px; height: 100%; overflow: auto">
+                    {{{system.impulse}}}
+                  </div>
+                  {{/if}}
+                </fieldset>
+              {{else}}
+                <div style="display: grid; grid-template-rows: auto auto;">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; font-size: 1.8em">
+                    <div class="anomalyStats" style="display: flex; margin-left: 3px; justify-content: center; align-items: center">
+                      <label for="system.threat">{{localize "TA.AnomalyThreat"}}</label>
+                      {{#if editable}}
+                        <input name="system.threat" type="number" value="{{system.threat}}"
+                            min="0" max="3" maxLength="1" oninput="this.value=this.value.slice(0,this.maxLength)"
+                            style="width: 30px; margin-left: 2px; text-align: center; border: none"/>                      
+                      {{else}}
+                        <span style="margin: 1px 0 0 10px">{{system.threat}}</span>
+                      {{/if}}
+                    </div>
+
+                    <div class="anomalyStats" style="display: flex; margin-right: 3px; justify-content: center; align-items: center">
+                      <label for="system.stability">{{localize "TA.AnomalyStability"}}</label>
+                      {{#if editable}}
+                        <input name="system.stability" type="number" value="{{system.stability}}"
+                            min="1" max="5" maxLength="1" oninput="this.value=this.value.slice(0,this.maxLength)"
+                            style="width: 30px; margin-left: 2px; text-align: center; border: none"/>                      
+                      {{else}}
+                        <span id="stabilityTrack" style="vertical-align: middle; margin: 2px 0 0 10px">
+                          {{#each extra.stabilityTrack}}
+                            <i data-id={{@index}} data-type="set" data-checked={{this}} class="fa-solid fa-circle fa-sm"
+                              style="cursor: pointer; color: {{ifThen this "#C8202F" "lightgrey"}};">
+                            </i>
+                          {{/each}}
+                        </span>
+                      {{/if}}
+                    </div>
+                  </div>
+
+                  <fieldset class="agency" style="margin-top: 10px; height: 110px">
+                    <legend class="context-anomaly">{{localize "TA.AnomalyAppearance"}}</legend>
+                    {{#if editable}}
+                    <textarea name="system.description" style="height: 100%">{{system.description}}</textarea>
+                    {{else}}
+                    <div style="padding: 2px; height: 100%; overflow: auto">
+                      {{{system.description}}}
+                    </div>
+                    {{/if}}
+                  </fieldset>
+                </div>
+              {{/if}}              
+            </div>
+          </div>
+
+          <div class="anomaly-below" style="margin-top: 8px;">
+            {{#if (eq system.type "major")}}
+              <fieldset class="agency" style="height: 100px">
+                <legend class="context-anomaly">{{localize "TA.AnomalyAppearance"}}</legend>
+                {{#if editable}}
+                <textarea name="system.description" style="height: 100%">{{system.description}}</textarea>
+                {{else}}
+                <div style="padding: 2px; height: 100%; overflow: auto">
+                  {{{system.description}}}
+                </div>
+                {{/if}}
+              </fieldset>
+
+              <fieldset class="agency context-anomaly" style="margin-top: 10px; height: 100px;">
+                <legend class="context-anomaly">
+                  {{localize "TA.AnomalyDomain"}}
+                  <label class="switch" style="margin-left: 8px" title="{{domain-status}}">
+                    <input class="indomain" type="checkbox" {{checked system.indomain}}>
+                    <span class="slider round"></span>
+                  </label>              
+                </legend>
+                {{#if editable}}
+                <textarea name="system.domain" style="height: 100%">{{system.domain}}</textarea>
+                {{else}}
+                <div style="padding: 2px; height: 100%; overflow: auto">
+                  {{{system.domain}}}
+                </div>
+                {{/if}}
+              </fieldset>
+            {{else}}
+              <fieldset class="agency" style="height: 210px">
+                <legend class="context-anomaly">{{localize "TA.AnomalyAbilities"}}</legend>
+                {{#if editable}}
+                <textarea name="system.ability" style="height: 100%">{{system.ability}}</textarea>
+                {{else}}
+                <div style="padding: 2px; height: 100%; overflow: auto">
+                  {{{system.ability}}}
+                </div>
+                {{/if}}
+              </fieldset>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="tab" data-group="primary" data-tab="chaos" style='font-family: "Articulat CF Normal"; font-size: 11pt;'>
+        <div style="display: grid; grid-template-columns: 200px auto; gap: 10px">
+          <div class="color-background-white" style="border: 1px solid #2752A2; border-radius: 5px; height: 445px">
+            {{#if editable}}
+              <div id="chaos-effect-add"
+                class="color-white"
+                style="background-color: #228B22; padding: 5px 2px 5px 4px; border: 1.5px solid #228B22; cursor: pointer; text-align: center;">
+                {{localize "TA.AnomalyAddChaosEffect"}}
+              </div>
+            {{else}}
+              <div class="color-white" style="text-align: center; background-color: #2752A2; padding: 5px 2px 5px 4px; border: 1.5px solid #2752A2;">
+                <span>{{localize "TA.AnomalyDomainWithin"}}</span>
+                <label class="switch" style="margin-left: 8px" title="{{domain-status}}">
+                  <input class="indomain" type="checkbox" {{checked system.indomain}}>
+                  <span class="slider round"></span>
+                </label>              
+              </div>
+            {{/if}}
+
+            <div id="chaosEffects" style="margin-top: 5px">
+              <nav class="flexrow sidenav chaos-nav" data-group="chaos" id="chaos-tabs">
+                <ul style="list-style-type: none; padding: 0; margin: 0 0 0 5px; font-size: 0.95em">
+                {{#each extra.chaosEffects}}
+                  <li data-tab="{{this.id}}" style="padding: 5px 0; cursor: pointer">
+                    <div style="display: grid; grid-template-columns: 16px 16px auto; gap: 2px; {{#unless this.available}}color: #c0c0c0{{/unless}}">
+                      <img src="systems/triangleagency/assets/icons/chaos{{#unless this.available}}-grey{{/unless}}.png" style="width: 15px; border: none"/>
+                      <div>{{this.cost}}</div>
+                      <div>{{this.name}}</div>
+                    </div>
+                  </li>
+                {{/each}}
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <div class="chaos-content flexrow color-background-white" style="border: 1px solid #2752A2; border-radius: 5px; padding: 5px">
+            {{#each extra.chaosEffects}}
+            <div class="tab" data-group="chaos" data-tab="{{this.id}}" style="padding: 5px; font-size: 10pt">
+              <div style="display: grid; grid-template-columns: auto 100px; font-size: 1.3em">
+                <div class="articulat-bold">
+                  {{#if ../editable}}
+                    <input name="system.chaosEffects.{{this.id}}.name" type="text" value="{{this.name}}" placeholder="Chaos effect name" style="margin-left: -3px"/>
+                  {{else}}
+                    {{this.name}}
+                  {{/if}}
+                </div>
+                <div style="text-align: right; cursor: pointer">
+                  <span class="chaos-effect-activate"
+                    data-id="{{this.id}}" data-cost="{{this.cost}}" data-available="{{this.available}}"
+                    style="{{#if ../editable}}cursor: default;{{/if}}">
+                    <img src="systems/triangleagency/assets/icons/chaos.png" style="display: inline-block; margin-top: -3px; width: 20px; vertical-align: middle; border: none"/>
+                    {{#if ../editable}}
+                      <input name="system.chaosEffects.{{this.id}}.cost" type="number" value="{{this.cost}}"
+                        step="1" min="0" max="30" maxlength="2" oninput="this.value=this.value.slice(0,this.maxLength)"
+                        style="width: 20px; text-align: center; margin: 0; padding: 0"
+                      />
+                    {{else}}
+                      {{this.cost}}
+                    {{/if}}
+                  
+                    {{#unless ../editable}}
+                      {{#if this.available}}
+                        <i class="fa-solid fa-bolt" style="color: green"></i>
+                      {{/if}}
+                    {{/unless}}
+                  </span>
+                  {{#if ../editable}}
+                  <span style="padding-left: 5px">
+                    <i data-id="{{this.id}}" class="chaos-effect-delete fa-solid fa-trash-can" title="{{localize "TA.Action.Delete"}}" style="color: #7a7971"></i>
+                  </span>
+                  {{/if}}
+                </div>
+              </div>
+              <div style="margin-top: 10px; height: 97%">
+                {{#if ../editable}}
+                  <textarea name="system.chaosEffects.{{this.id}}.description" style="margin: -4px 0 0 -2px; width: 101%; height: 94%">{{this.description}}</textarea>
+                {{else}}
+                  {{{this.description}}}
+                {{/if}}
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+
+      <div class="tab notes" data-group="primary" data-tab="notes">
+        <div class="articulat" style="height: 99%; width: 100%;">
+          {{editor
+          system.notes
+          target="system.notes"
+          engine="prosemirror"
+          button=true
+          editable=true
+          }}
+        </div>
+      </div>
+  </div>
+</form>

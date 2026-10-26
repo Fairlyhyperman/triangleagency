@@ -1,0 +1,196 @@
+<div style="margin-top: 2px">
+  <div>
+    <span>{{{message}}}</span>
+  </div>
+
+  {{#if primary.result.triscendence}}
+    <div style="margin-top: 2px; padding: 0 5px; text-align: center">
+      <div>{{{localize "TA.Agent.GainTricendenceMsg"}}}</div>
+      <div style="display: flex; justify-content: center">
+        <img class="icon" src="systems/triangleagency/assets/icons/d4-success.png" style="width: 35px"/>
+        <img class="icon" src="systems/triangleagency/assets/icons/d4-success.png" style="width: 35px"/>
+        <img class="icon" src="systems/triangleagency/assets/icons/d4-success.png" style="width: 35px"/>
+      </div>
+    </div>
+  {{/if}}
+
+  {{#unless lock}}
+    <div style="margin-top: 6px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 0 5px; padding: 0 5px; align-items: center">
+      {{#each effective.d4display}}
+        <div>
+          <img class="icon" src="systems/triangleagency/assets/icons/d4-{{this}}.png"/>
+        </div>
+      {{/each}}
+    </div>
+
+    <div class="adjustDie" data-dice="d4" data-adjust="qa" data-type="qa" style="margin-top: 5px; display: grid; grid-template-columns: 1fr 10px 40px 10px 1fr; gap: 0;">
+      <div style="margin-top: 1px; color: grey">&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;</div>
+    
+      <div style="justify-self: right; margin-top: 0px">
+        <i class="color-purple fa-solid fa-circle-minus" data-adjust="down" style="cursor: pointer; vertical-align: middle"></i>
+      </div>
+
+      <div style="font-size: 14pt">
+        <img class="icon" src="systems/triangleagency/assets/icons/qa.png"
+          style="height: 18px; margin-top: -3px; margin-left: auto; margin-right: auto;"
+        />
+      </div>
+
+      <div style="justify-self: left; margin-top: 0px">
+        <i class="color-purple fa-solid fa-circle-plus" data-adjust="up" style="cursor: pointer; vertical-align: middle"></i>
+      </div>
+    
+      <div style="margin-top: 1px; color: grey">&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;</div>
+    </div>
+
+
+    {{#if supplement.active}}
+      {{#if (eq supplement.type "d6")}}
+        <div style="margin-top: 8px; display: grid; grid-template-columns: 50px 1fr 1fr 1fr 50px; align-items: center">
+          <div style="padding-right: 8px; justify-self: right"  title="{{localize "TA.Chat.D6DemeritAdjust"}}">
+            <img class="adjustDie" data-adjust="setFace" data-type="demerit" data-dice="d6" src="systems/triangleagency/assets/icons/demerit.png" style="height: 18px; cursor: pointer"/>
+          </div>
+
+          <div style="padding-right: 6px"><hr/></div>
+
+          <div title="{{localize "TA.Dialog.UncommendableDie"}}" style="justify-self: center">
+            <img src="systems/triangleagency/assets/icons/d6-outcome-{{supplement.result.pip}}.png" style="width: 35px"/>
+          </div>
+
+          <div style="padding-left: 6px"><hr/></div>
+
+          <div style="padding-left: 8px; justify-self: left" title="{{localize "TA.Chat.D6QAAdjust"}}">
+            <img class="adjustDie" data-adjust="setFace" data-type="qa" data-dice="d6" src="systems/triangleagency/assets/icons/qa.png" style="height: 18px; cursor: pointer"/>
+          </div>
+        </div>
+      {{else}}
+        {{#if (eq supplement.type "d8")}}
+          <div class="adjustSupplement" data-dice="d8">
+            <div style="margin-top: 8px; display: grid; grid-template-columns: 1fr 20px 60px 20px 1fr; align-items: center">
+
+              {{#if supplement.result.success}}
+                <div style="justify-self: right; padding-right: 5px">
+                  <div>
+                    <i class="color-purple fa-solid fa-circle-minus" data-adjust="down" style="cursor: pointer; vertical-align: middle"></i>
+                  </div>
+                  {{supplement.result.success}}
+                </div>
+
+                <div><hr/></div>
+              {{else}}
+                <div></div>
+                <div></div>
+              {{/if}}
+
+              <div style="justify-self: center" title="{{localize "TA.Dialog.Sponsorship"}}">
+                <img src="systems/triangleagency/assets/icons/d8-outcome-{{supplement.result.pip}}.png" style="width: 50px"/>
+              </div>
+
+              {{#if supplement.result.success}}
+                <div><hr/></div>
+
+                <div style="justify-self: left; padding-left: 5px">
+                  <div>
+                    <i class="color-purple fa-solid fa-circle-plus" data-adjust="up" style="cursor: pointer; vertical-align: middle"></i>
+                  </div>
+                  {{supplement.result.success}}
+                </div>
+              {{else}}
+                <div></div>
+                <div></div>
+              {{/if}}
+            </div>
+
+            {{#if supplement.result.success}}
+              <div style="text-align: center">
+                <div>|</div>
+                <div class="articulat-bold color-purple" data-adjust="ignore" style="cursor: pointer">{{localize "TA.Chat.Ignore"}}</div>
+              </div>
+            {{else}}
+              {{#if effective.success}}
+                <div>
+                  <span>{{{supplement.result.message}}}</span>
+                </div>
+              {{/if}}
+            {{/if}}
+          </div>
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  {{/unless}}
+
+  {{#if primary.result.message}}
+    <div style="margin-top: 5px"><span>{{{primary.result.message}}} {{{abilityMessage}}}</span></div>
+  {{/if}}
+  {{#if lock}}
+    {{#if (eq supplement.type "d8")}}
+      {{#if supplement.result.message}}
+        <div style="margin-top: 6px">
+          <span>{{{supplement.result.message}}}</span>
+        </div>
+      {{/if}}
+    {{/if}}
+  {{/if}}
+
+  {{#unless lock}}
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 5px; margin-top: 10px">
+      <div style="justify-self: left; align-self: end; font-size: 14pt; padding: 0 0 6px 10px">
+        {{#if outcome.showDemerits}}
+          <img class="icon" src="systems/triangleagency/assets/icons/demerit.png" style="height: 18px; margin-top: -3px; margin-left: auto; margin-right: auto" title="{{localize "TA.Chat.ClickToReset"}}"
+          />
+          <span style="display: inline-block; margin-left: 2px">
+            {{demerit.remaining}} / {{demerit.max}}
+          </span>
+        {{/if}}
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; font-size: 1.3em">
+        <div class="adjustDie" data-dice="d4" data-adjust="qa" data-type="qa" style="justify-self: right; cursor: pointer">
+          <i class="color-purple fa-solid fa-rotate-left" data-adjust="reset" data-type="qa" title="{{localize "TA.Chat.ClickToReset"}}"></i>
+        </div>
+
+        <div style="justify-self: left">
+          <i id="lockOutcome" class="fa-solid fa-lock color-red" style="cursor: pointer" title="{{localize "TA.Chat.Lock"}}"></i>
+        </div>
+      </div>
+
+      <div style="justify-self: right; align-self: end; font-size: 14pt; padding: 0 10px 6px 0">
+        <img class="icon" src="systems/triangleagency/assets/icons/qa.png" style="height: 18px; margin-top: -3px; margin-left: auto; margin-right: auto" title="{{localize "TA.Chat.ClickToReset"}}"
+        />
+        <span style="display: inline-block; margin-left: 2px">
+          {{qa.remaining}} / {{qa.max}}
+        </span>
+      </div>
+    </div>
+  {{/unless}}
+  
+  <div class="center" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 5px; justify-items: center; border-top: 1px solid grey; margin-top: 6px; padding-top: 6px; font-size: 14pt">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 3px; align-items: center">
+      <img class="icon" src="systems/triangleagency/assets/icons/burnout.png"
+        style="width: 14px; justify-self: right; margin-top: -5px" title="{{localize "TA.burnout"}}"
+      />
+      <div style="justify-self: left">
+        {{burnout}}
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 3px; align-items: center">
+      <img class="icon" src="systems/triangleagency/assets/icons/chaos.png"
+        style="width: 16px; justify-self: right; margin-top: -2.5px" title="{{localize "TA.chaos"}}"
+      />
+      <div style="justify-self: left">
+        {{effective.chaos}}
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 2px; align-items: center">
+      <img class="icon" src="systems/triangleagency/assets/icons/d4-success.png"
+        style="width: 17px; justify-self: right; margin-top: -3px" title="{{localize "TA.successes"}}"
+      />
+      <div style="justify-self: left">
+        {{effective.success}}
+      </div>
+    </div>
+  </div>
+
+</div>

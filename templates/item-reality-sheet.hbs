@@ -1,0 +1,70 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <nav class="flexrow tabbed round" data-group="primary" id="competency-tabs">
+    <ul>
+      <li data-tab="main">
+        <span style="margin-right: 3px; color: yellow">&#9650;</span>
+        {{localize "TYPES.Item.Reality"}}
+      </li>
+    </ul>
+  </nav>
+
+  <div class="tab-content flexrow manilla-folder">
+      <div class="tab active" data-group="primary" data-tab="main">
+        <div class="tab-workarea" style="height: 600px; font-size: 10pt">
+          <div style="font-size: 1.8em; width: 100%">
+            <input name="name" type="text" value="{{item.name}}" placeholder="Reality name"/>
+          </div>
+
+          <div style="height: 225px; width: 100%">
+            {{editor
+            system.description
+            target="system.description"
+            engine="prosemirror"
+            button=true
+            editable=editable
+            }}
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr; width: 100%">
+            <fieldset class="agency">
+              <legend class="context-reality">{{localize "TA.Reality.RealityTrigger"}}</legend>
+              <div>
+                <input name="system.realityTrigger.blurb" type="text" value="{{system.realityTrigger.blurb}}" placeholder="Title" class="header"/>
+                <textarea name="system.realityTrigger.description" rows="7" cols="10" wrap="soft" placeholder="The vulnerability that Anomalies will exploit">{{system.realityTrigger.description}}</textarea>
+              </div>
+              <div>
+                <label><b>{{localize "TA.Reality.TriggerTrack"}}</b>:</label>
+                <input name="system.realityTrigger.track.name" type="text" value="{{system.realityTrigger.track.name}}" placeholder="Track name" style="width: 200px"/>
+              </div>
+            </fieldset>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 2fr; width: 100%; margin: 10px 0 10px 0">
+
+            <fieldset class="agency">
+              <legend class="context-reality">Burnout Release</legend>
+              <div>
+                <input name="system.burnoutRelease.blurb" type="text" value="{{system.burnoutRelease.blurb}}" placeholder="Title" class="header"/>
+                <textarea name="system.burnoutRelease.description" rows="5" cols="10" wrap="soft" placeholder="What enables you to ignore Burnout">{{system.burnoutRelease.description}}</textarea>
+              </div>
+            </fieldset>
+
+            <fieldset class="agency">
+              <legend class="context-reality">Relationships</legend>
+              <div>
+                <div>
+                  <input id="system.relationships.question1" name="system.relationships.question1" type="text" value="{{system.relationships.question1}}" placeholder="Question"/>
+                </div>
+                <div style="margin-top: 10px">
+                  <input id="system.relationships.question2" name="system.relationships.question2" type="text" value="{{system.relationships.question2}}" placeholder="Question"/>
+                </div>
+                <div style="margin-top: 10px">
+                  <input id="system.relationships.question3" name="system.relationships.question3" type="text" value="{{system.relationships.question3}}" placeholder="Question"/>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+  </div>
+</form>

@@ -1,0 +1,41 @@
+{{#if showinfo}}
+<div style="border-top: 1px solid grey; padding-top: 6px; font-size: 14pt">
+  {{#if (gt burnout 0)}}
+    <span style="margin-right: 10px">
+      <img class="icon" src="systems/triangleagency/assets/icons/burnout.png"
+        style="width: 15px; margin-top: -6px" title="{{localize "TA.burnout"}}"
+      />
+      <span style="margin-right: 2px; display: inline-block; width: 12px; text-align: left">
+        {{burnout}}
+      </span>
+    </span>
+  {{/if}}
+
+  <span style="margin-right: 10px">
+    <img class="icon" src="systems/triangleagency/assets/icons/chaos.png"
+      style="width: 20px; margin-top: -4px" title="{{localize "TA.chaos"}}"
+    />
+    <span style="display: inline-block; width: 12px; text-align: left">
+      {{chaos}}
+    </span>
+  </span>
+
+  {{#if qaShowAdjust}}
+    <span style="margin-left: 2px">
+      <img class="icon" src="systems/triangleagency/assets/icons/qa.png"
+        style="width: 22px; margin-top: -4px" title="{{localize "TA.Agent.QualityAssurances"}}"
+      />
+      <span id="qa-adjust" style="display: inline-block; margin-right: 4px">
+        <span data-action="reclaim" style="display: inline-block; width: 12px; text-align: left; cursor: pointer" title="{{localize "TA.Agent.ReclaimQA"}}">{{qaAvailable}}</span>
+        <span style="font-size: 0.8em; color: grey; vertical-align: middle">
+          <span>&#9664;</span><span>&#9654;</span>
+        </span>
+        <span data-action="spend" style="display: inline-block; width: 12px; text-align: left; cursor: pointer" title="{{localize "TA.Agent.SpendQA"}}">{{qaSpent}}</span>
+      </span>
+    </span>
+    <span style="margin-left: 15px">
+      <i id="lockOutcome" class="fa-solid fa-lock color-red" style="cursor: pointer" title="{{localize "TA.Chat.Lock"}}"></i>
+    </span>
+  {{/if}}
+</div>
+{{/if}}

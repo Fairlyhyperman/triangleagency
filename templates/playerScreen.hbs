@@ -1,0 +1,11 @@
+<div class="triangleagency color-background-white" style="color: black; font-size: 10pt; background-image: none; padding: 0">
+  <div style="height: 50px; margin-bottom: 10px; overflow: clip">
+    {{{localize "TA.Agent.MyPlayedByDescr"}}}
+  </div>
+  <div id="contactList" style="height: 280px: overflow: auto">
+    {{#each npcs}}
+      <div class="npc articulat-bold" data-bystander="{{this.id}}" style="margin-bottom: 8px; cursor: pointer">{{this.name}}</div>
+    {{/each}}
+
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="{{trackClass}}" data-type="{{trackType}}" data-canstrike="{{canstrike}}"
+  style="display: grid; grid-template-columns: {{#if hideStartEnd}}0px{{else}}1.4em{{/if}} repeat({{columns}}, 22px 9.45px) {{#if hideStartEnd}}0px{{else}}1.4em{{/if}}; gap: 3px 0; align-items: center">
+  {{#each rows}}
+    {{#if (eq this.rowStart "&#9654;")}}
+      <div class="track-line" style="font-size: 1.4em; margin-top: -1px; justify-self: center">{{{this.rowStart}}}</div>
+    {{else}}
+      <div class="track-line" style="font-size: 10pt; margin-top: 4px; margin-bottom: 4px">
+        {{{this.rowStart}}}
+        {{#if this.rowStartArrowDown}}
+          <span style="position: absolute; font-size: 1.4em; z-index: 2; margin: -5px 0 0 -5px">&#9660;</span>
+        {{/if}}
+      </div>
+    {{/if}}
+    {{#each this.columns}}
+      <div class="{{../../boxClass}} track-box
+        {{#if this.canaction}}track-action{{/if}}
+        {{#if this.isMilestone}}{{#if ../../highlightMilestones}}track-milestone{{/if}}{{/if}}
+        {{#if this.checked}}track-checked{{/if}}
+        {{#if this.struck}}track-struck{{/if}}
+      " data-value="{{this.value}}"
+        data-id="{{this.id}}"
+        data-name="{{this.name}}">
+          {{~#if this.isMilestone}}<span style="color: white; vertical-align: middle">{{{this.milestone}}}</span>{{else}}&nbsp;{{/if}}
+      </div>
+      {{#if this.lineAfter}}
+        <div class="track-line" style="margin-top: 3px">&#9472;</div>
+      {{else}}
+        <div style="width: 0px; display: none"></div>
+      {{/if}}
+    {{/each}}
+
+    {{#if (eq this.rowEnd "&nbsp;")}}
+      <div style="width: 0px; display: none"></div>
+    {{else}}
+      <div class="track-line" style="margin-top: 3px">
+        <span style="margin-left: -2px">{{{this.rowEnd}}}</span>
+        {{#if this.rowEndArrowDown}}
+          <span style="position: absolute; font-size: 1.4em; z-index: 2; margin: 12px 0 0 -14px">&#9660;</span>
+        {{/if}}
+      </div>
+    {{/if}}
+  {{/each}}
+  {{#if trackEnd}}
+    <span>{{{endIcon}}}</span>
+  {{/if}}
+</div>

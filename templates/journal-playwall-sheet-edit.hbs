@@ -1,0 +1,146 @@
+<form class="{{cssClass}} displayarea" autocomplete="off">
+  <div class="articulat-bold" style="display: grid; grid-template-columns: auto 60px; gap: 0 10px; font-size: 14pt">
+    <div>
+      <input id="playwallName" type="text" value="{{document.name}}" placeholder="Playwall name"/>
+    </div>
+    <div class="color-background-{{aspect}}" style="width: 60px; color: white" title="{{localize "TA.Journal.PlaywallCode"}}">
+      <input id="playwallReference" class="incontext" type="text" value="{{code}}" placeholder="???"
+        style="font-size: 12pt; text-align: center; text-transform:uppercase; color: white"
+        oninput="this.value = this.value.toUpperCase();"
+      />
+    </div>
+  </div>
+
+  <div style="height: 433px; margin-top: 5px">
+    <div class="articulat" style="height: 100%; width: 100%">
+      {{editor
+      content
+      target="system.content"
+      button=true
+      engine="prosemirror"
+      owner=owner
+      editable=editable
+      }}
+    </div>
+  </div>
+
+  <div style="margin-top: 10px">
+    <fieldset class="agency">
+      <legend class="context-competency">{{localize "TA.Journal.AgencyUseOnly"}}</legend>
+      <div style="height: 240px">
+        <div style="height: 100px; display: grid; grid-template-columns: auto 150px; gap: 0 10px">
+          <div style="margin-top: 6px">
+            <div style="vertical-align: middle">
+              <label for="system.aspect"><b>{{localize "TA.Journal.Context"}}</b></label>
+              <select class="playwallContext" name="system.aspect">
+                {{selectOptions lists.aspects selected=aspect localize=true}}
+              </select>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0 10px">
+              <div style="margin-top: 6px">
+                <fieldset>
+                  <legend>{{localize "TA.Journal.AbilityChanges"}}</legend>
+                  <div style="display: grid; grid-auto-rows: min-content; grid-template-columns: 1fr 120px 1fr; gap: 5px 5px; height: 75px; padding-top: 1px; vertical-align: middle; overflow: auto">
+                    {{#each abilities}}
+                      <div class="articulat-bold" style="mergin-top: 1px; vertical-align: middle">{{this.name}}</div>
+                      <div style="display: inline-block; vertical-algn: middle;">
+                        <select class="abilityAction" data-id="{{@key}}">
+                          <option value="add" {{#if (eq this.mergeAction "add")}}selected{{/if}}>{{localize "TA.Journal.AbilityActionAdd"}}</option>
+                          <option value="replace" {{#if (eq this.mergeAction "replace")}}selected{{/if}}>{{localize "TA.Journal.AbilityActionReplace"}}</option>
+                          <option value="merge" {{#if (eq this.mergeAction "merge")}}selected{{/if}}>{{localize "TA.Journal.AbilityActionMerge"}}</option>
+                        </select>
+                      </div>
+                      <div>
+                        {{#if this.showTargets}}
+                        <select class="abilityTarget" data-id="{{@key}}">
+                          {{selectOptions this.targetList selected=this.targetAbilityId valueAttr="id" labelAttr="name"}}
+                        </select>
+                        {{/if}}
+                      </div>
+                    {{/each}}
+                  </div>
+                </fieldset>
+              </div>
+
+              <div style="margin-top: 6px">
+                <fieldset>
+                  <legend>{{localize "TA.Agent.Requisitions"}}</legend>
+                  <div style="height: 75px; overflow: auto">
+                    {{#each requisitions}}
+                      <div>{{this.name}}</div>
+                    {{/each}}
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div style="margin-top: 10px">
+              <fieldset>
+                <legend>GM {{localize "TA.Notes"}}</legend>
+                <div style="height: 50px; padding: 2px">
+                  <textarea id="gmnotes">{{data.gmnotes}}</textarea>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+
+          <div>
+            <div style="margin-top: 6px">
+              <fieldset>
+                <legend>{{localize "TA.Journal.Permitted"}}</legend>
+                <div style="height: 98px; overflow: auto">
+                  {{#each viewers}}
+                    <div>{{this}}</div>
+                  {{/each}}
+                </div>
+              </fieldset>
+            </div>
+
+            <div style="margin-top: 10px">
+              <fieldset>
+                <legend>
+                  {{localize "TA.Journal.Track"}}
+                  {{#unless hasTrack}}
+                  <i class="addTrack fa-solid fa-square-plus" style="margin-left: 8px; vertical-align: middle; cursor: pointer"></i>
+                  {{/unless}}
+                </legend>
+                <div style="height: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 5px">
+                  {{#if hasTrack}}
+                    <div class="articulat-bold">{{localize "TA.Journal.TrackSize"}}</div>
+                    <div>
+                      <input data-id="size" type="number" value="{{data.tracks.size}}"
+                        class="trackData"
+                        min="0" max="100" step="1" maxLength="3"
+                        oninput="this.value=this.value.slice(0,this.maxLength)"
+                        onmouseenter="this.focus()"
+                        style="width: 30px; text-align: left"/>
+                    </div>
+
+                    <div class="articulat-bold">{{localize "TA.Journal.TrackWrap"}}</div>
+                    <div>
+                      <input data-id="wrap" type="number" value="{{data.tracks.wrap}}"
+                        class="trackData"
+                        min="10" max="50" step="10" maxLength="2"
+                        oninput="this.value=this.value.slice(0,this.maxLength)"
+                        onmouseenter="this.focus()"
+                        style="width: 30px; text-align: left"/>
+                    </div>
+
+                    <div class="articulat-bold">{{localize "TA.Journal.TrackShared"}}</div>
+                    <div>
+                      <input data-id="shared" type="checkbox" {{#if data.tracks.shared}}checked{{/if}}
+                        class="trackData"
+                        style="width: 10pt; height: 10pt; margin: 0 0 0 3px"
+                      />
+                    </div>
+                  {{/if}}
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</form>

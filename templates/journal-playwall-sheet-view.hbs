@@ -1,0 +1,30 @@
+<form class="triangleagency {{cssClass}}" autocomplete="off">
+  <div class="articulat-bold color-background-{{aspect}}"
+    style="text-align: center; font-size: 1.8em; color: white; padding-top: 2px; border-radius: 5px; margin-bottom: 10px">{{title}}
+  </div>
+  <div>
+    {{{content}}}
+  </div>
+  {{#each abilities}}
+  <div style="margin: 10px 0 20px 0">
+    {{{this.render}}}
+  </div>
+  {{/each}}
+  {{#each requisitions}}
+  <div style="margin: 10px 0 20px 0">
+    <div class="articulat-bold" style="font-size: 1.2em">
+      {{this.name}}
+      <span class="articulat" style="margin-left: 10px">
+        {{this.cost}}
+        <img src="systems/triangleagency/assets/icons/commendation.png" style="vertical-align: middle; width: 12px; margin-top: -1px"/>
+      </span>
+    </div>
+    <div style="margin: 0; padding: 0">{{{this.description}}}</div>
+  </div>
+  {{/each}}
+  {{#if track}}
+  <div style="display: flex; margin: 10px 0 20px 0; justify-content: center">
+    <div>{{{track}}}</div>
+  </div>
+  {{/if}}
+</form>

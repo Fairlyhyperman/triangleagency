@@ -1,0 +1,67 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <nav class="flexrow tabbed round" data-group="primary" id="competency-tabs">
+    <ul>
+      <li data-tab="main">
+        <span class="color-red" style="margin-right: 3px">&#9650;</span>
+        {{localize "TYPES.Item.Competency"}}
+      </li>
+    </ul>
+  </nav>
+
+  <div class="tab-content flexrow manilla-folder">
+    <div class="tab active" data-group="primary" data-tab="main">
+      <div class="tab-workarea" style="height: 460px; font-size: 10pt">
+        <div style="font-size: 1.8em; width: 100%">
+          <input name="name" type="text" value="{{item.name}}" placeholder="Competency name"/>
+        </div>
+
+        <div style="height: 280px; width: 100%">
+          {{editor
+          system.description
+          target="system.description"
+          engine="prosemirror"
+          button=true
+          editable=editable
+          }}
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 2fr auto; width: 100%">
+          <fieldset class="agency">
+            <legend class="context-competency">{{localize "TA.Agent.PrimeDirective"}}</legend>
+            <div>
+              <input id="system.primeDirectiveBlurb" name="system.primeDirectiveBlurb" type="text" value="{{system.primeDirectiveBlurb}}" placeholder="Title" class="header"/>
+              <textarea name="system.primeDirective" rows="5" cols="10" wrap="soft" placeholder="What you do to earn a Commendation">{{system.primeDirective}}</textarea>
+            </div>
+          </fieldset>
+
+          <fieldset class="agency">
+            <legend class="context-competency">{{localize "TA.Agent.SanctionedBehaviors"}}</legend>
+            <div>
+              <div>
+                <input id="system.sanctionedBehaviors.act1" name="system.sanctionedBehaviors.act1" type="text" value="{{system.sanctionedBehaviors.act1}}" placeholder="Behavior"/>
+              </div>
+              <div style="margin-top: 10px">
+                <input id="system.sanctionedBehaviors.act2" name="system.sanctionedBehaviors.act2" type="text" value="{{system.sanctionedBehaviors.act2}}" placeholder="Behavior"/>
+              </div>
+              <div style="margin-top: 10px">
+                <input id="system.sanctionedBehaviors.act3" name="system.sanctionedBehaviors.act3" type="text" value="{{system.sanctionedBehaviors.act3}}" placeholder="Behavior"/>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="agency">
+            <legend class="context-competency">{{localize "TA.Agent.InitialRequisition"}}</legend>
+            <div style="margin-top: 3px">
+              <select name="system.initialRequisition">
+                <option value=""></option>
+                {{selectOptions extra.requisitions selected=system.initialRequisition localize=true}}
+              </select>
+            </div>
+          </fieldset>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>

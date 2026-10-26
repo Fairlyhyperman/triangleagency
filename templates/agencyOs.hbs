@@ -1,0 +1,53 @@
+<div style="display: grid; grid-template-columns: auto auto auto; background-image: none; background-color: white; color: black; padding: 0 5px">
+  <div style="display: flex" title="{{localize "TA.chaos"}}">
+    <img src="systems/triangleagency/assets/icons/chaos.png" style="border: none; height: 30px; width: 30px"/>
+    <div class="agencyOsAjust articulat-bold" data-type="chaos" style="margin-left: 5px; font-size: 20pt">
+      {{#if isGM}}
+        <input type="number" value="{{chaos}}"
+          min="0" max="333" maxLength="3"
+          style="width: 60px; font-size: 18pt; text-align: left; border: none; background-color: white; color: black"
+           oninput="this.value=this.value.slice(0,this.maxLength)"
+           onmouseenter="this.focus()"
+           onmouseleave="this.blur()"
+        />
+      {{else}}
+        <span style="margin-left: 5px; color: black">{{chaos}}</span>
+      {{/if}}
+    </div>
+  </div>
+
+  <div style="display: flex; margin-left: 20px" title="{{localize "TA.ATALocationBurnout"}}">
+    <img src="systems/triangleagency/assets/icons/burnout-location.png" style="border: none; height: 32px; width: 30px; margin-top: -2px"/>
+    <div class="agencyOsAjust articulat-bold" data-type="burnout" style="margin-left: 5px; font-size: 20pt">
+      {{#if isGM}}
+        <input type="number" value="{{burnout}}"
+          min="0" max="5" maxLength="1"
+          style="width: 32px; font-size: 18pt; text-align: left; border: none; background-color: white; color: black"
+          oninput="this.value=this.value.slice(0,this.maxLength)"
+          onmouseenter="this.focus()"
+          onmouseleave="this.blur()"
+        />
+      {{else}}
+        <span style="margin-left: 3px; color: black">{{burnout}}</span>
+      {{/if}}
+    </div>
+  </div>
+
+  <div style="display: flex; margin-left: 20px" title="{{localize "TA.looseends"}}">
+    <img src="systems/triangleagency/assets/icons/looseend.png" style="border: none; height: 30px; width: 32px; margin-top: -2px"/>
+    <div class="agencyOsAjust articulat-bold" data-type="looseends" style="margin-left: 5px; font-size: 20pt">
+      {{#if isGM}}
+        <input type="number" value="{{looseends}}"
+          min="0" max="99" maxLength="2"
+          style="width: 45px; font-size: 18pt; text-align: left; border: none; background-color: white; color: black"
+          oninput="this.value=this.value.slice(0,this.maxLength)"          
+          onmouseenter="this.focus()"
+          onmouseleave="this.blur()"
+        />
+      {{else}}
+        <span style="margin-left: 5px; color: black">{{looseends}}</span>
+      {{/if}}
+    </div>
+    </div>
+  </div>
+</div>

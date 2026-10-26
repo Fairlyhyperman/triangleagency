@@ -1,0 +1,38 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <nav class="flexrow tabbed round" data-group="primary" id="competency-tabs">
+    <ul>
+      <li data-tab="main">{{localize "TYPES.Item.ChaosEffect"}}</li>
+    </ul>
+  </nav>
+
+  <div class="tab-content flexrow manilla-folder">
+      <div class="tab active" data-group="primary" data-tab="main">
+        <div class="tab-workarea" style="height: 300px">
+          <div style="font-size: 1.8em; width: 100%; display: flex">
+            <input class="articulat-bold" name="name" type="text" value="{{item.name}}" placeholder="Chaos effect name" style="margin-right: 10px;"/>
+
+            <div style="display: flex; margin-right: 10px">
+              <img src="systems/triangleagency/assets/icons/chaos.png" style="border: none; width: 22px; height: 22px; margin-top:1px"/>
+              <input name="system.cost" type="number" value="{{system.cost}}"
+                min="0" max="50" maxLength="2"
+                style="margin-left: 5px; width: 42px; text-align: left; border: none; background-color: white"
+                oninput="this.value=this.value.slice(0,this.maxLength)"
+                onmouseenter="this.focus()"
+                onmouseleave="this.blur()"
+              />
+            </div>
+          </div>
+
+          <div style="height: 150px; width: 100%; font-size: 1.1em">
+            {{editor
+            system.description
+            target="system.description"
+            engine="prosemirror"
+            button=true
+            editable=editable
+            }}
+          </div>
+        </div>
+      </div>
+  </div>
+</form>

@@ -1,0 +1,883 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <nav class="flexrow tabbed round" data-group="primary" id="agent-tabs">
+    <ul>
+      {{#if isGM}}
+        <li data-tab="agency">GM</li>
+      {{/if}}
+      <li data-tab="notes">{{localize "TA.Notes"}}</li>
+      {{#if system.competency.type}}
+      <li data-tab="competency"><span class="color-red" style="margin-right: 3px">&#9650;</span>
+        {{extra.competency.name}}
+      </li>
+      {{/if}}
+      {{#if system.reality.type}}
+      <li data-tab="reality"><span style="margin-right: 3px; color: yellow">&#9650;</span>
+        {{extra.reality.name}}
+      </li>
+      {{/if}}
+      {{#if system.anomaly.type}}
+      <li data-tab="anomaly"><span class="color-blue" style="margin-right: 3px">&#9650;</span>
+        {{extra.anomaly.name}}
+      </li>
+      {{/if}}
+      <li data-tab="profile">{{localize "TYPES.Actor.Agent"}}</li>
+    </ul>
+  </nav>
+
+  <div class="tab-content flexrow"
+    style="height: 95%; border: 4px solid #f1d592; border-radius: 4px; padding: 5px; background-color: #f1d592">
+      <div class="tab active" data-group="primary" data-tab="profile" style='font-family: "Articulat CF Normal"; font-size: 11pt;'>
+        <div class="agent-container">
+
+          <div class="agent-image">
+            <div class="paperclip">
+              <img src="systems/triangleagency/assets/ui/paperclip-red.png">
+            </div>
+            <div style="padding: 2px">
+              <div class="characterImage color-background-white"
+                style="display: flex; padding: 5px; border: 1px solid darkslategrey; width: 150px; height: 198px; justify-content: center; align-items: center;">
+                <img src="{{actor.img}}" data-edit="img" title="{{localize "TA.PictureOf"}} {{actor.name}}"
+                  style="cursor: pointer; width: auto; height: auto; max-width: 138px; max-height: 185px;"/>
+              </div>
+            </div>
+            <div style="margin-top: 5px; text-align: center">
+              <span class="articulat-bold">{{system.agency.title}}</span>
+            </div>
+            {{#if extra.showPlaywallButton}}
+            <div id="showPlaywall" class="competence-button" style="margin: 6px 5px 0 5px">
+              &#9650;&nbsp;&nbsp;{{localize "TA.Agent.ShowPlaywall"}}
+            </div>
+            {{/if}}
+          </div>
+
+          <div class="agent-middle">
+            <div style="display: grid; grid-template-columns: auto 100px; gap: 0 10px; width: 100%; margin-bottom: 8px;">
+              <div>
+                <input id="agent-name" name="name" type="text" value="{{actor.name}}" placeholder="Agent name" style="font-size: 1.5em; font-weight: bold"/>
+              </div>
+              <div>
+              <input name="system.pronouns" type="text" value="{{system.pronouns}}" placeholder="{{localize "TA.Agent.Pronouns"}}"
+                style="text-align: right; font-style: italic; margin-right: 3px"/>
+              </div>
+            </div>
+
+            <div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 10px;">
+                <div class="agent-directive">
+                  <fieldset class="agency" style="height: 98px">
+                    <legend class="context-competency">{{localize "TA.Agent.PrimeDirective"}}</legend>
+                    <div style="font-size: 10pt">
+                      <div class="articulat-bold color-red" style="margin-top: 5px">{{{extra.competency.system.primeDirectiveBlurb}}}</div>
+                      <textarea name="system.competency.primeDirective">{{system.competency.primeDirective}}</textarea>
+                    </div>
+                  </fieldset>
+
+                  <div class="agent-awards" style="margin-top: 15px">
+                    <fieldset class="agency">
+                      <legend class="context-competency">{{localize "TA.Agent.PerformanceMetrics"}}</legend>
+                      <div class="articulat-bold" style="display: grid; grid-template-columns: 20px auto auto; grid-gap: 0px 7px; padding-top: 4px; font-size: 1.1em">
+
+                        <img src="systems/triangleagency/assets/icons/commendation.png" style="width: 14px; margin: 0 0 0 2px; justify-self: left"/>
+                        <div style="vertical-align: middle">{{localize "TA.Agent.Commendations"}}</div>
+                        <div style="justify-self: right">
+                          <input class="recordPerformance" name="system.agency.commendations" type="number" value="{{system.agency.commendations}}"
+                            data-context="commendations"
+                            data-old="{{system.agency.commendations}}"
+                            min="-100" max="50" maxLength="4"
+                            oninput="this.value=this.value.slice(0,this.maxLength)"
+                            onmouseenter="this.focus()"
+                            onmouseleave="this.blur()"
+                            style="width: 40px; text-align: right"/>
+                        </div>
+
+                        <img src="systems/triangleagency/assets/icons/demerit.png" style="width: 17px; margin-top: 1px; justify-self: left"/>
+                        <div style="vertical-align: middle">{{localize "TA.Agent.Demerits"}}</div>
+                        <div style="justify-self: right">
+                          <input class="recordPerformance" name="system.agency.demerits" type="number" value="{{system.agency.demerits}}"
+                            data-context="demerits"
+                            data-old="{{system.agency.demerits}}"
+                            min="0" max="50" maxLength="2"
+                            oninput="this.value=this.value.slice(0,this.maxLength)"
+                            onmouseenter="this.focus()"
+                            onmouseleave="this.blur()"
+                            style="width: 40px; text-align: right"/>
+                        </div>
+
+                        <img src="systems/triangleagency/assets/icons/burnout.png" style="width: 14px; margin: -3px 0 0 2px; justify-self: left"/>
+                        <div style="vertical-align: middle">{{localize "TA.Agent.AdditionalBurnout"}}</div>
+                        <div style="justify-self: right">
+                          <input name="system.burnout" type="number" value="{{system.burnout}}"
+                            min="0" max="3" maxLength="1"
+                            oninput="this.value=this.value.slice(0,this.maxLength)"
+                            onmouseenter="this.focus()"
+                            onmouseleave="this.blur()"
+                            style="width: 40px; text-align: right"/>
+                        </div>
+                      </div>
+                      <div class="isagency" style="margin-top: 2px; text-align: center">
+                        {{{extra.standing}}}
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+               
+                <div class="agent-burnout">
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 10px">
+                    <div>
+                      <div id="lifeInsurance" class="competence-button">
+                        {{localize "TA.Agent.LifeInsurancePolicy"}}
+                      </div>
+                      <div id="conflictResolution" class="competence-button" style="margin-top: 10px">
+                        {{localize "TA.Agent.ConflictResolution"}}
+                      </div>
+                    </div>
+                    <div>
+                      {{#if system.ataDice}}
+                      <fieldset class="agency" style="height: 66px">
+                        <legend class="context-competency">{{localize "TA.DiceOptions"}}</legend>
+                        <div class="specialDice center" style="display: grid; grid-template-columns: repeat({{system.ataDice}}, 1fr); padding: 0"
+                          data-d8="false" data-d20="false"
+                          >
+                          {{#if system.dice.d8}}
+                            <div>
+                              <img src="systems/triangleagency/assets/icons/sponsor.png" data-type="d8" style="height: 36px" title="{{localize "TA.Dialog.Sponsorship"}}"/>
+                            </div>
+                          {{/if}}
+                          {{#if system.dice.d20}}
+                            <div>
+                              <img src="systems/triangleagency/assets/icons/skillcheck3.png" data-type="d20" style="cursor: pointer; height: 36px" title="{{localize "TA.Dialog.SkillCheck"}}"/>
+                            </div>
+                          {{/if}}
+                        </div>
+                      </fieldset>
+                      {{else}}
+                      <div class="color-background-white"
+                        style="height: 66px; border: 2px solid #C8202F; border-radius: 3px;
+                          padding: 10px; font-size: 10pt;
+                          display: flex; align-items: center;
+                           text-align: center;">
+                        {{localize "TA.LeftBlank"}}
+                      </div>
+                      {{/if}}
+                    </div>
+                  </div>
+
+                  <fieldset class="agency" style="height: 148px; margin-top: 10px">
+                    <legend class="context-reality">
+                      {{localize "TA.Agent.BurnoutRelease"}}
+                      <label class="switch" style="float: right" title="{{localize "TA.Agent.ToggleBurnoutRelease"}}">
+                        <input name="system.burnoutRelease" type="checkbox" {{checked system.burnoutRelease}}>
+                        <span class="slider round"></span>
+                      </label>
+                    </legend>
+                    <div style="font-size: 10pt">
+                      <div class="articulat-bold color-yellow" style="margin-top: 5px">{{{extra.reality.system.burnoutRelease.blurb}}}</div>
+                      <div>{{{extra.reality.system.burnoutRelease.description}}}</div>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="agent-right">
+            <fieldset class="agency" style="height: 566px">
+              <legend>
+                {{localize "TA.Agent.QualityAssurances"}}
+                {{#if isGM}}
+                <span id="resetQAs" style="margin-left: 10px; cursor: pointer" title="{{localize "TA.Agent.ResetQAs"}}">
+                  <i class="fa-solid fa-rotate-left"></i>
+                </span>
+                {{/if}}
+              </legend>
+
+              <div style="display: grid; grid-template-rows: auto auto; gap: 0; margin-top: 2px">
+                {{#each extra.qas}}
+                  <div style="margin-top: 8px">
+                    <label class="qa-label qa-check {{#if (eq this.data.value 0)}} color-red{{/if}}" data-qa="{{this.qa}}" data-action="ata">
+                      {{this.name}}
+                    </label>
+                    <span class="qa-pip-values">
+                      <input class="qacurr" data-quality="{{this.qa}}" type="number" value="{{this.data.value}}"
+                        min="0" max="{{this.data.max}}" maxLength="1"
+                        oninput="this.value=this.value.slice(0,this.maxLength)"
+                        onmouseenter="this.focus()"
+                        onmouseleave="this.blur()"
+                      />
+                      /
+                      <input class="qamax" data-quality="{{this.qa}}" type="number" value="{{this.data.max}}"
+                        min="0" max="9" maxLength="1"
+                        oninput="this.value=this.value.slice(0,this.maxLength)"
+                        onmouseenter="this.focus()"
+                        onmouseleave="this.blur()"
+                        {{#unless ../extra.playerExtra}}disabled{{/unless}}
+                      />
+                    </span>
+                  </div>
+
+                  <div class="qa-pips" data-qa="{{this.qa}}">
+                    <span class="qa-pip{{#if (gte this.data.value 1)}} qa-pip-active{{/if}}" title="1" data-value="1" style="margin-left: 0">&#9650;</span>
+                    <span class="qa-pip{{#if (gte this.data.value 2)}} qa-pip-active{{/if}}" title="2" data-value="2">&#9660;</span>
+                    <span class="qa-pip{{#if (gte this.data.value 3)}} qa-pip-active{{/if}}" title="3" data-value="3">&#9650;</span>
+                    <span class="qa-pip{{#if (gte this.data.value 4)}} qa-pip-active{{/if}}" title="4" data-value="4">&#9660;</span>
+                    <span class="qa-pip{{#if (gte this.data.value 5)}} qa-pip-active{{/if}}" title="5" data-value="5">&#9650;</span>
+                    <span class="qa-pip{{#if (gte this.data.value 6)}} qa-pip-active{{/if}}" title="6" data-value="6">&#9660;</span>
+                    <span class="qa-pip{{#if (gte this.data.value 7)}} qa-pip-active{{/if}}" title="7" data-value="7">&#9650;</span>
+                    <span class="qa-pip{{#if (gte this.data.value 8)}} qa-pip-active{{/if}}" title="8" data-value="8">&#9660;</span>
+                    <span class="qa-pip{{#if (gte this.data.value 9)}} qa-pip-active{{/if}}" title="9" data-value="9">&#9650;</span>
+                  </div>
+                {{/each}}
+              </div>
+            </fieldset>
+          </div>
+
+
+          <div class="agent-bottom" style="height: 100%; margin-top: 8px">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 0 10px">
+              <div>
+                <fieldset class="agency" style="height: 290px">
+                  <legend class="context-competency">{{localize "TA.Agent.SanctionedBehaviors"}}</legend>
+                  <div style="font-size: 10pt">
+                    <div style="margin-top: 6px">
+                      {{{localize "TA.Agent.SanctionedBehaviorGain1"}}}
+                    </div>
+                    <div style="display: grid; grid-template-columns: 15px auto; gap: 10px 4px; margin-top: 6px">
+                      <div style="margin-left: -3px">
+                        <input id="act1" type="checkbox" name="system.mission.sanctionedBehaviors.act1" {{checked system.mission.sanctionedBehaviors.act1}}
+                          style="margin: 0; vertical-align: middle; height: 10pt"
+                        />
+                      </div>
+                      <div style="margin-top: 1px">
+                        {{{extra.competency.system.sanctionedBehaviors.act1}}}
+                      </div>
+                      <div style="margin-left: -3px">
+                        <input id="act2" type="checkbox" name="system.mission.sanctionedBehaviors.act2" {{checked system.mission.sanctionedBehaviors.act2}}
+                          style="margin: 0; vertical-align: middle; height: 10pt"
+                        />
+                      </div>
+                      <div style="margin-top: 1px">
+                        {{{extra.competency.system.sanctionedBehaviors.act2}}}
+                      </div>
+                      <div style="margin-left: -3px">
+                        <input id="act3" type="checkbox" name="system.mission.sanctionedBehaviors.act3" {{checked system.mission.sanctionedBehaviors.act3}}
+                          style="margin: 0; vertical-align: middle; height: 10pt"
+                        />
+                      </div>
+                      <div style="margin-top: 1px">
+                        {{{extra.competency.system.sanctionedBehaviors.act3}}}
+                      </div>
+                    </div>
+                    <div style="margin-top: 10px">
+                      {{{localize "TA.Agent.SanctionedBehaviorsBonus"}}}
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+              <div>
+                <fieldset class="agency" style="height: 290px; overflow: auto">
+                  <legend>{{localize "TA.Agent.MissionObjectives"}}</legend>
+                  <div>
+                    {{#each extra.missionObjectives}}
+                      <div style="margin: 6px 0 4px 0">{{{this}}}</div>
+                    {{/each}}
+                  </div>
+                </fieldset>
+              </div>
+
+              <div>
+                <fieldset class="agency" style="height: 290px">
+                  <legend class="context-reality">{{localize "TA.Reality.RealityTrigger"}}</legend>
+                  <div class="articulat-bold color-yellow" style="margin-top: 5px">{{{extra.reality.system.realityTrigger.blurb}}}</div>
+                  <div style="font-size: 10pt">
+                    <div style="height: 187px; overflow: auto">{{{extra.reality.system.realityTrigger.description}}}</div>
+
+                    <div style="display: block; width: 99%; margin: 0 auto; text-align: center">
+                      <div class="articulat-bold color-yellow" style="margin-bottom: 5px">{{extra.reality.system.realityTrigger.track.name}}</div>
+                      {{{extra.triggerTrack}}}
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <!--
+      **************************************************************************************************************
+      ANOMALY TAB
+      **************************************************************************************************************
+      //-->
+
+      <div class="tab" data-group="primary" data-tab="anomaly" style='font-family: "Articulat CF Normal"; font-size: 10pt'>
+        <div style='display: grid; grid-template-rows: auto auto'>
+          <div>
+            <fieldset class="agency" style="height: 429px">
+              <legend class="context-anomaly">{{localize "TA.AnomalyAbilities"}}</legend>
+              <div style="padding: 5px">
+                <div style="display: grid; grid-template-columns: 200px auto">
+                  <div style="width: 200px; border-right: 1px solid lightgrey; margin-right: 10px">
+
+                    {{#if system.anomalyDice}}
+                      <fieldset style="margin: 0 10px 2px 0">
+                        <legend class="context-anomaly">{{localize "TA.DiceOptions"}}</legend>
+                        <div class="anomalyDice specialDice center" style="display: grid; grid-template-columns: repeat({{system.anomalyDice}}, 1fr); padding: 2px 0 0 0"
+                          data-d6="false" data-d10="false"
+                          >
+                          {{#if system.dice.d6}}
+                            <div>
+                              <img id="hasD6" src="systems/triangleagency/assets/icons/d6-on.png" data-type="d6" style="cursor: pointer; height: 25px" title="d6"/>
+                            </div>
+                          {{/if}}
+                          {{#if system.dice.d10}}
+                            <div>
+                              <img id="hasD10" src="systems/triangleagency/assets/icons/d10-on.png" data-type="d10" style="cursor: pointer; height: 25px" title="d10"/>
+                            </div>
+                          {{/if}}
+                        </div>
+                      </fieldset>
+                    {{/if}}
+
+                    <div style="height: {{#if system.anomalyDice}}322px{{else}}400px{{/if}}; overflow: auto">
+                      <nav class="anomaly-nav sidenav flexrow" data-group="anomaly" id="ability-tabs">
+                        <ul style="list-style-type: none; padding: 0; margin: 0;">
+                          {{#each extra.anomaly.abilities}}
+                            <li data-tab="{{this.id}}" style="padding: 5px 0 5px 0; cursor: pointer;">
+                              {{#if ../isGM}}
+                                <i class="fa-solid fa-trash fa-xs color-grey-light delete-ability" style="cursor: pointer; vertical-align: middle; margin-right: 3px"
+                                  title="{{localize "TA.Action.Delete"}}" data-id="{{this.id}}">
+                                </i>
+                              {{/if}}
+                              <span class="articulat-bold" style="vertical-align: middle">{{this.name}}</span>
+                            </li>
+                          {{/each}}
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+
+                  <div class="anomaly-content flexrow" style="height: 390px; padding-left: 10px; overflow-y: auto">
+                    {{#each extra.anomaly.abilities}}
+                      <div class="tab" data-group="anomaly" data-tab="{{this.id}}">
+                        <div style="display: grid; grid-template-columns: auto 70px; grid-gap: 5px; font-size: 1.1em">
+                          <div class="articulat-bold">
+                            {{this.name}}
+                          </div>
+                          <div>
+                            {{#if this.canImprove}}
+                              {{#if this.improvement.showReview}}
+                                <label class="switch" style="float: right" title="{{localize "TA.Agent.AnomalyPracticed"}}">
+                                  <input class="setPracticed" data-id="{{this.id}}" type="checkbox"
+                                    {{#if this.practiced}}checked{{/if}}
+                                    {{#unless ../extra.playerPlaywallTracks}}disabled="disabled"{{/unless}}
+                                  />
+                                  <span class="slider round"></span>
+                                </label>
+                              {{/if}}
+                            {{/if}}
+
+                            {{#if this.canImprove}}
+                              <span class="color-purple togglePeerReview" data-id="{{this.id}}" style="float: right; margin: 1px 5px 0 0; vertical-align: middle; cursor: pointer">
+                                {{#if this.improvement.visible}}
+                                  <i class="fa-solid fa-eye-slash" title="{{localize "TA.Agent.PeerReviewHidden"}}"></i>
+                                {{else}}
+                                  <i class="fa-solid fa-eye" title="{{localize "TA.Agent.PeerReviewVisible"}}"></i>
+                                {{/if}}
+                              </span>
+                            {{/if}}
+                          </div>
+                        </div>
+                        <div>{{{this.rendered}}}</div>
+
+                        {{#if this.canImprove}}
+                          {{#if this.improvement.showReview}}
+                            <div style="margin-top: 15px">
+                              <fieldset class="agency" style="border-color: #C0C0C0">
+                                <legend>{{localize "TA.Agent.PeerReview"}}</legend>
+                                <div style="padding: 5px; height: 100px; overflow: auto">
+                                  <div class="articulat-bold" style="text-align: center">{{{this.improvement.question}}}</div>
+                                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px">
+                                    {{#each this.improvement.answers}}
+                                      <div>
+                                        <div style="margin-bottom: 6px">{{this.text}}</div>
+                                        {{{this.track}}}
+                                      </div>
+                                    {{/each}}
+                                  </div>
+                                </div>
+                              </fieldset>
+                            </div>
+                          {{/if}}
+                        {{/if}}
+                      </div>
+                    {{/each}} 
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div style="margin-top: 10px">
+            <fieldset class="agency">
+              <legend class="context-anomaly">{{localize "TA.Agent.WorkLifeBalance"}}</legend>
+              <div style="height: 100px; display: grid; grid-template-columns: auto 430px; grid-gap: 0 10px">
+                
+                <div style="margin-top: 6px">
+                  {{{extra.worklife.anomaly}}}
+                  <div class="color-text" style="margin-top: 5px">
+                    {{{localize "TA.Agent.AnomalyMissionEnd"}}}
+                  </div>
+                </div>
+
+                <div style="margin-top: 3px">
+                  {{{localize "TA.Agent.AnomalyBenefit"}}}
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+
+      
+      <!--
+      **************************************************************************************************************
+      REALITY TAB
+      **************************************************************************************************************
+      //-->
+
+      <div class="tab" data-group="primary" data-tab="reality" style='font-family: "Articulat CF Normal"; font-size: 10pt'>
+        <div style='display: grid; grid-template-rows: auto auto'>
+          <div>
+            <fieldset class="agency" style="height: 319px">
+              <legend class="context-reality">
+                {{localize "TA.Agent.Relationships"}}
+              </legend>
+              <div style="padding: 5px">
+                <div style="display: grid; grid-template-columns: 200px auto">
+                  <div style="width: 200px; border-right: 1px solid lightgrey; margin-right: 10px">
+                    <div class="add-button" style="margin: 0 10px 0 0; cursor: default">
+                      <i class="fa-solid fa-globe" style="margin-right: 2px"></i>
+                      <span>{{localize "TA.Agent.Network"}}</span>
+                      <span style="margin-left: 2px">{{extra.networkSize}}</span>
+                    </div>
+
+                    {{#if extra.playerExtra}}
+                      {{#unless extra.RelationshipOptions}}
+                        <div class="add-relationship add-button" data-type="relationship" style="margin: 6px 10px 6px 0">
+                          {{localize "TA.Agent.AddRelationship"}}
+                        </div>
+                      {{else}}
+                        <div class="dropdown" style="margin: 6px 10px 6px 0">
+                          <div class="dropdown-button" style="width: 189px">{{localize "TA.Agent.AddRelationshipType"}}</div>
+                          <div class="add-relationship dropdown-content" style="width: 189px; margin-right: 10px">
+                            <div data-type="relationship">{{localize "TA.Agent.Relationship"}}</div>
+                            {{#if extra.canTether}}
+                              <div data-type="tether">{{localize "TA.Agent.Tether"}}</div>
+                            {{/if}}
+                            {{#if extra.canSeek}}
+                              <div data-type="fugitive">{{localize "TA.Agent.FugitiveAnomaly"}}</div>
+                            {{/if}}
+                          </div>                        
+                        </div>
+                      {{/unless}}
+                    {{/if}}
+                    <div style="height: {{#if isGM}}205px{{else}}240px{{/if}}; margin-right: 10px; overflow: auto">
+                      <nav class="relationships-nav sidenav flexrow" data-group="relationships">
+                        <ul style="list-style-type: none; padding: 0; margin: 0;">
+                          {{#each extra.relationships}}
+                            <li data-tab="{{this.id}}" style="padding: 5px 0 5px 0; cursor: pointer;">
+                              {{#if ../isGM}}
+                                <i class="fa-solid fa-trash fa-xs color-grey-light delete-relationship" style="cursor: pointer; vertical-align: middle; margin-right: 3px"
+                                  title="{{localize "TA.Action.Delete"}}" data-id="{{this.id}}">
+                                </i>
+                              {{/if}}
+                              <span class="articulat-bold {{#if this.active}}color-green{{/if}}" style="vertical-align: middle">{{this.name}}</span>
+                            </li>
+                          {{/each}}
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+
+                  <div class="relationships-content flexrow" style="height: 280px; overflow-y: auto">
+                    {{#each extra.relationships}}
+                      <div class="tab" data-group="relationships" data-tab="{{this.id}}" style="padding: 3px 3px 3px 10px">
+                        <div style="display: grid; grid-template-columns: auto 30px; grid-gap: 5px; font-size: 1.1em">
+                          <input name="system.reality.relationships.{{this.id}}.name" type="text"
+                            value="{{this.name}}" placeholder="Relationship Name" style="font-family: 'Articulat CF Bold'"
+                          />
+                          {{#if this.hasBenefit}}
+                            <div>
+                              {{#if this.network}}
+                                <i class="fa-solid fa-globe color-green" style="float: right" title="{{localize "TA.Agent.Network"}}"></i>
+                              {{else}}
+                                <label class="switch" style="float: right" title="{{localize "TA.Agent.RelationshipBenefit"}}">
+                                  <input name="system.reality.relationships.{{this.id}}.active" type="checkbox" {{checked this.active}}>
+                                  <span class="slider round"></span>
+                                </label>
+                              {{/if}}
+                            </div>
+                          {{/if}}
+                        </div>
+
+                        <div style="margin-top: 2px">
+                          <textarea name="system.reality.relationships.{{this.id}}.description" style="height: 90px" placeholder="{{localize "TA.Description"}}">{{this.description}}</textarea>
+
+                          <div style="display: inline-block; vertical-align: middle">
+                            {{#if (eq this.type "relationship")}}
+                              {{#if ../isGM}}
+                                <i class="showBystander fa-solid fa-user fa-lg color-yellow"
+                                  title="{{localize "TA.Agent.ConnectionBystander"}}"
+                                  style="cursor: pointer; margin-right: 6px"
+                                  data-relationship="{{this.id}}"
+                                  data-bystander="{{this.bystanderId}}"
+                                ></i>
+                              {{/if}}
+                              <label style="margin-right: 0">{{localize "TA.Agent.ConnectionPlayedBy"}}</label>
+                              {{#if ../isGM}}
+                                <select class="playedby" data-relationshipid="{{this.id}}" style="margin: 0; padding: 0">
+                                  {{selectOptions ../extra.users selected=this.playedby localize=false}}
+                                </select>
+                              {{else}}
+                                {{this.playedby}}
+                              {{/if}}
+                            {{/if}}
+                          </div>
+                        </div>
+
+                        <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #C0C0C0">
+                          <div style="display: grid; grid-template-columns: 1fr {{#if this.hasBenefit}}1fr{{/if}}; grid-gap: 10px">
+                            <div>
+                              <fieldset class="agency" style="border-color: #C0C0C0">
+                                <legend class="context-{{this.typeContext}}">{{this.typeDisplay}}</legend>
+                                <div style="display: flex; height: 95px; overflow: auto; padding-top: 6px; justify-content: center; align-items: flex-start">
+                                  {{{this.trackDisplay}}}
+                                </div>
+                              </fieldset>
+                            </div>
+
+                            {{#if this.hasBenefit}}
+                              <div>
+                                <fieldset class="agency" style="border-color: #C0C0C0">
+                                  <legend class="connectionBonusAction {{#if this.active}}context-clickable{{else}}context-reality{{/if}}" data-id="{{this.id}}">
+                                    {{this.bonusName}}
+                                  </legend>
+                                  <div style="padding: 0px 5px; height: 95px; overflow: auto">
+                                    {{{this.bonusDescription}}}
+                                  </div>
+                                </fieldset>
+                              </div>
+                            {{/if}}
+                          </div>
+                        </div>
+
+
+                      </div>
+                    {{/each}}              
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="agency" style="height: 100px; margin-top: 10px">
+              <legend class="context-reality">{{localize "TA.Agent.PersonalInfo"}}</legend>
+              <div>
+                <textarea name="system.reality.personal" style="height: 70px">{{system.reality.personal}}</textarea>
+              </div>
+            </fieldset>              
+          </div>
+
+          <div style="margin-top: 10px">
+            <fieldset class="agency">
+              <legend class="context-reality">{{localize "TA.Agent.WorkLifeBalance"}}</legend>
+              <div style="height: 100px; display: grid; grid-template-columns: auto 430px; grid-gap: 0 10px">
+                
+                <div style="margin-top: 6px">
+                  {{{extra.worklife.reality}}}
+                  <div class="color-text" style="margin-top: 5px">
+                    {{{localize "TA.Agent.RealityMissionEnd"}}}
+                  </div>
+                </div>
+
+                <div style="margin-top: 3px">
+                  {{{localize "TA.Agent.RealityBenefit"}}}
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+
+
+      <!--
+      **************************************************************************************************************
+      COMPETENCY TAB
+      **************************************************************************************************************
+      //-->
+
+      <div class="tab" data-group="primary" data-tab="competency" style='font-family: "Articulat CF Normal"; font-size: 10pt'>
+        <div style='display: grid; grid-template-rows: auto auto'>
+          <div>
+            <fieldset class="agency" style="height: 429px">
+              <legend class="context-competency">{{localize "TA.Agent.Requisitions"}}</legend>
+              <div style="padding: 5px">
+                <div style="display: grid; grid-template-columns: 200px auto;">
+                  <div style="width: 200px; border-right: 1px solid lightgrey; margin-right: 10px; height: 400px; overflow: auto">
+                    <nav class="requisition-nav sidenav flexrow" data-group="requisition">
+                      <ul style="list-style-type: none; padding: 0; margin: 0">
+                        {{#each extra.requisitions}}
+                          <li data-tab="{{this.id}}" style="padding: 5px 0 5px 0; cursor: pointer;">
+                            {{#if ../isGM}}
+                              <i class="fa-solid fa-trash fa-xs color-grey-light delete-requisition" style="cursor: pointer; vertical-align: middle; margin-right: 3px"
+                                title="{{localize "TA.Action.Delete"}}" data-id="{{this.id}}">
+                              </i>
+                            {{/if}}
+                            <span class="articulat-bold" style="vertical-align: middle">{{this.name}}</span>
+                          </li>
+                        {{/each}}
+                      </ul>
+                    </nav>
+                  </div>
+
+                  <div class="requisition-content flexrow" style="height: 390px; padding-left: 10px; overflow-y: auto">
+                    {{#each extra.requisitions}}
+                      <div class="tab" data-group="requisition" data-tab="{{this.id}}">
+                        <div class="articulat-bold" style="font-size: 1.1em">
+                          {{this.name}}
+                        </div>
+                        <div>
+                          {{{this.system.description}}}
+                        </div>
+                        {{#unless this.system.unlimited}}
+                          <div style="margin-top: 5px" title="{{localize "TA.Uses"}}">
+                            {{{this.trackDisplay}}}
+                          </div>
+                        {{/unless}}
+                        <div style="margin: 10px 2px 0 -2px">
+                          <textarea class="requisitionNote" data-id="{{this.id}}" placeholder="{{localize "TA.Notes"}}" style="height: 100px; overflow: auto">{{this.system.notes}}</textarea>
+                        </div>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div style="margin-top: 10px">
+            <fieldset class="agency">
+              <legend class="context-competency">{{localize "TA.Agent.WorkLifeBalance"}}</legend>
+
+              <div style="height: 100px; display: grid; grid-template-columns: auto 430px; grid-gap: 0 10px">
+                
+                <div style="margin-top: 6px">
+                  {{{extra.worklife.competency}}}
+                  <div class="color-text" style="margin-top: 5px">
+                    {{{localize "TA.Agent.CompetencyMissionEnd"}}}
+                  </div>
+                </div>
+
+                <div style="margin-top: 3px">
+                  {{{localize "TA.Agent.CompetencyBenefit"}}}
+                </div>
+              </div>
+
+            </fieldset>
+          </div>
+        </div>
+      </div>
+
+
+      <!--
+      **************************************************************************************************************
+      NOTES TAB
+      **************************************************************************************************************
+      //-->
+
+      <div class="tab notes" data-group="primary" data-tab="notes" style='font-family: "Articulat CF Normal"; font-size: 10pt'>
+        <div class="articulat" style="height: 467px; width: 100%;">
+          {{editor
+          system.notes
+          target="system.notes"
+          engine="prosemirror"
+          button=true
+          editable=true
+          }}
+        </div>
+        <div>
+          <fieldset class="agency" style="height: 86px">
+            <legend class="context-agency">{{localize "TA.Agent.AccumulatedTime"}}</legend>
+            <div style="margin: 6px 0 6px 0; display: flex; justify-content: center">
+              {{{extra.timeTrack}}}
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+
+      <!--
+      **************************************************************************************************************
+      GM TAB
+      **************************************************************************************************************
+      //-->
+
+      <div class="tab" data-group="primary" data-tab="agency" style='font-family: "Articulat CF Normal"; font-size: 10pt;'>
+        <div style="display: grid; grid-template-columns: 200px auto; gap: 0 10px">
+          <div>
+            <fieldset class="agency">
+              <legend class="context-agency">{{localize "TA.TheAgency"}}</legend>
+              <div style="height: 100px; margin-top: 5px">
+                <div style="display: grid; grid-template-columns: 1fr 30px; margin-top: 5px">
+                  <div class="articulat-bold">{{localize "TA.Agent.MissionCommendations"}}</div>
+                  <div>
+                    <input name="system.mission.commendations" type="number" value="{{system.mission.commendations}}"
+                      min="-100" max="200" maxLength="4"
+                      oninput="this.value=this.value.slice(0,this.maxLength)"
+                      onmouseenter="this.focus()"
+                      onmouseleave="this.blur()"
+                      style="width: 30px; text-align: right"/>
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 30px; margin-top: 5px">
+                  <div class="articulat-bold">{{localize "TA.Agent.MissionDemerits"}}</div>
+                  <div>
+                    <input name="system.mission.demerits" type="number" value="{{system.mission.demerits}}"
+                      min="0" max="50" maxLength="2"
+                      oninput="this.value=this.value.slice(0,this.maxLength)"
+                      onmouseenter="this.focus()"
+                      onmouseleave="this.blur()"
+                      style="width: 30px; text-align: right"/>
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 30px; margin-top: 5px">
+                  <div class="articulat-bold">{{localize "TA.Agent.CareerDemerits"}}</div>
+                  <div>
+                    <input name="system.agency.career.demerits" type="number" value="{{system.agency.career.demerits}}"
+                      min="0" max="50" maxLength="2"
+                      oninput="this.value=this.value.slice(0,this.maxLength)"
+                      onmouseenter="this.focus()"
+                      onmouseleave="this.blur()"
+                      style="width: 30px; text-align: right"/>
+                  </div>
+                </div>
+
+                {{#if extra.manualStanding}}
+                <div style="display: grid; grid-template-columns: 1fr 30px; margin-top: 5px">
+                  <div class="articulat-bold">{{localize "TA.Agent.Standing"}}</div>
+                  <div>
+                    <input name="system.agency.standing" type="number" value="{{system.agency.standing}}"
+                      min="0" max="10" maxLength="2"
+                      oninput="this.value=this.value.slice(0,this.maxLength)"
+                      onmouseenter="this.focus()"
+                      onmouseleave="this.blur()"
+                      style="width: 30px; text-align: right"/>
+                  </div>
+                </div>
+                <div class="articulat-bold center color-red" style="font-size: 10pt">{{{extra.standing}}}</div>
+                {{/if}}
+              </div>
+            </fieldset>
+          </div>
+
+          <div>
+            <fieldset class="agency">
+              <legend class="context-agency">
+                {{localize "TA.Playwall"}}
+                <span id="togglePlaywallLock" style="margin-left: 6px; cursor: pointer">
+                  {{#if system.achievementsLocked}}
+                    <i class="fa-solid fa-lock fa-sm" style="vertical-align: middle"></i>
+                  {{else}}
+                    <i class="fa-solid fa-lock-open fa-sm" style="vertical-align: middle"></i>
+                    <i id="resyncPaywall" class="fa-solid fa-rotate fa-sm" title="{{localize "TA.PlaywallSync"}}" style="margin-left: 6px; cursor: pointer; vertical-align: middle"></i>
+                  {{/if}}
+                </span>
+              </legend>
+              <div style="height: 100px; display: grid; grid-template-columns: 90px auto; gap: 8px 6px; margin-top: 5px">
+                <div class="articulat-bold color-blue">{{localize "TYPES.Item.Anomaly"}}</div>
+                {{#if system.achievementsLocked}}
+                  <div class="gotoPlaywall" style="margin: 0 0 2px 3px">
+                    {{#each system.achievements.anomaly}}
+                      <span class="playwallLink" data-playwall="{{@key}}">{{@key}}</span>{{#unless @last}}, {{/unless}}
+                    {{/each}}
+                  </div>
+                {{else}}
+                  <input class="playwallReference" type="text" data-context="anomaly" value="{{extra.playwall.anomaly}}"
+                    style="text-transform:uppercase"
+                    oninput="this.value = this.value.toUpperCase();"
+                    data-list="{{extra.playwall.anomaly}}"
+                  />
+                {{/if}}
+
+                <div class="articulat-bold color-yellow">{{localize "TYPES.Item.Reality"}}</div>
+                {{#if system.achievementsLocked}}
+                  <div class="gotoPlaywall" style="margin: 0 0 2px 3px">
+                    {{#each system.achievements.reality}}
+                      <span class="playwallLink" data-playwall="{{@key}}">{{@key}}</span>{{#unless @last}}, {{/unless}}
+                    {{/each}}
+                  </div>
+                {{else}}
+                  <input class="playwallReference" type="text" data-context="reality" value="{{extra.playwall.reality}}"
+                    style="text-transform:uppercase"
+                    oninput="this.value = this.value.toUpperCase();"
+                    data-list="{{extra.playwall.reality}}"
+                  />
+                {{/if}}
+
+                <div class="articulat-bold color-red">{{localize "TYPES.Item.Competency"}}</div>
+                {{#if system.achievementsLocked}}
+                  <div class="gotoPlaywall" style="margin: 0 0 3px 3px">
+                    {{#each system.achievements.competency}}
+                      <span class="playwallLink" data-playwall="{{@key}}">{{@key}}</span>{{#unless @last}}, {{/unless}}
+                    {{/each}}
+                  </div>
+                {{else}}
+                  <input class="playwallReference" type="text" data-context="competency" value="{{extra.playwall.competency}}"
+                    style="text-transform:uppercase"
+                    oninput="this.value = this.value.toUpperCase();"
+                    data-list="{{extra.playwall.competency}}"
+                  />
+                {{/if}}
+
+                <div class="articulat-bold">{{localize "TA.Other"}}</div>
+                {{#if system.achievementsLocked}}
+                  <div class="gotoPlaywall" style="margin: 0 0 2px 3px">
+                    {{#each system.achievements.other}}
+                      <span class="playwallLink" data-playwall="{{@key}}">{{@key}}</span>{{#unless @last}}, {{/unless}}
+                    {{/each}}
+                  </div>
+                {{else}}
+                  <input class="playwallReference" type="text" data-context="other" value="{{extra.playwall.other}}"
+                    style="text-transform:uppercase"
+                    oninput="this.value = this.value.toUpperCase();"
+                    data-list="{{extra.playwall.other}}"
+                  />
+                {{/if}}
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px">
+          <fieldset class="agency">
+            <legend class="context-agency">{{localize "TA.Notes"}}</legend>
+            <div class="articulat" style="height: 397px; width: 100%;">
+              {{editor
+              system.gmNotes
+              target="system.gmNotes"
+              engine="prosemirror"
+              button=true
+              editable=true
+              }}
+            </div>
+          </fieldset>
+        </div>
+      </div>
+  </div>
+</form>

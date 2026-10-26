@@ -1,0 +1,10 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <div class="color-background-white" style="height: 100%; padding: 5px; border: 1px solid grey; border-radius: 3px;">
+    <div style="text-align: center; margin: 1px 0 10px 0; border-bottom: 1px solid grey">
+      <select name="triggerOn" style="border: none; background-color: inherit">
+        {{selectOptions triggers selected=triggerOn localize=true}}
+      </select>
+    </div>
+    <textarea name="outcomeDescription" style="height: 425px; width: 100%; padding: 6px; resize: none; font-family: inherit; font-size: inherit; border: none">{{outcomeDescription}}</textarea>
+  </div>
+</form>

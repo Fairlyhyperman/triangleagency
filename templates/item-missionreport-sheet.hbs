@@ -1,0 +1,251 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <div class="articulat" style="height: 800px">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 5px; margin-bottom: 10px">
+      <div class="articulat-bold" style="margin-top: -4px; font-size: 2.5em">
+        {{localize "TA.Mission.MissionReport"}}
+      </div>
+      <div style="font-size: 1.2em; text-align: center">
+        <div>
+          <b>{{localize "TA.Mission.Incident"}} #{{incidentCode}}</b>
+        </div>
+        <div style="vertical-align: middle">
+          {{#if isGM}}
+            <div style="cursor: pointer">
+              <label class="switch" style="margin-left: 8px">
+                <input id="missionResolved" type="checkbox" {{checked system.resolved}}>
+                <span class="slider round"></span>
+              </label>              
+              <label for="missionResolved" style="position: relative; margin-top: 3px">{{localize "TA.Mission.StatusResolved"}}</label>
+            </div>
+          {{else}}
+            <span class="articulat-bold {{#if system.resolved}}color-green{{else}}color-red blink{{/if}}">{{#if system.resolved}}{{localize "TA.Mission.StatusResolved"}}{{else}}{{localize "TA.Mission.StatusOngoing"}}{{/if}}</span>
+          {{/if}}
+        </div>
+      </div>
+      <div style="justify-self: right">
+        <img src="systems/triangleagency/assets/icons/ta-logo.png" style="width: 100px; border: none; margin-right: 3px"/>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: auto 160px; gap: 10px">
+      <div>
+        <div>
+          <fieldset class="agency">
+            <legend class="context-anomaly">{{localize "TA.Mission.AnomalyStatus"}}</legend>
+            <div id="anomalyStatus" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0 10px; padding: 5px 5px 0 0; justify-items: center">
+              <div style="padding: 5px; text-align: center; cursor: pointer" data-status="neutralized">
+                <img src="systems/triangleagency/assets/icons/ripplegun.png" style="border: none; height: 60px" data-status="neutralized">
+                <div class="articulat-bold statusLegend {{#if (eq system.status "neutralized")}}statusBackground{{/if}}" data-status="neutralized">{{localize "TA.Mission.Neutralized"}}</div>
+              </div>
+              <div style="text-align: center; cursor: pointer" data-status="captured">
+                <img src="systems/triangleagency/assets/icons/briefcase.png" style="border: none; height: 60px" data-status="captured">
+                <div class="articulat-bold statusLegend {{#if (eq system.status "captured")}}statusBackground{{/if}}" data-status="captured">{{localize "TA.Mission.Captured"}}</div>
+              </div>
+              <div style="text-align: center; cursor: pointer" data-status="escaped">
+                <img src="systems/triangleagency/assets/icons/escaped.png" style="border: none; height: 60px" data-status="escaped">
+                <div class="articulat-bold statusLegend {{#if (eq system.status "escaped")}}statusBackground{{/if}}" data-status="escaped">{{localize "TA.Mission.Escaped"}}</div>
+              </div>
+              <div style="text-align: center; cursor: pointer" data-status="other">
+                <img src="systems/triangleagency/assets/icons/interrobang.png" style="border: none; height: 60px" data-status="other">
+                <div class="articulat-bold statusLegend {{#if (eq system.status "other")}}statusBackground{{/if}}" data-status="other">{{localize "TA.Mission.OtherOutcome"}}</div>
+              </div>
+            </div>
+            <textarea name="system.otherstatus" placeholder="{{localize "TA.Notes"}}"
+              style="margin-top: 0px; height: 20px">{{system.otherstatus}}</textarea>
+          </fieldset>
+         </div>
+
+        <div style="margin-top: 15px">
+          <fieldset class="agency">
+            <legend class="context-anomaly">{{localize "TA.Mission.AnomalyAnalysis"}}</legend>
+            <div style="height: 196px; padding-top: 5px; display: grid; grid-template-columns: 50px auto; gap: 4px 13px">
+              <div class="articulat-bold" style="margin-top: 2px">{{localize "TA.Mission.AnomalyAlias"}}</div>
+              <div><input name="name" type="text" value="{{item.name}}"/></div>
+              <div class="articulat-bold" style="margin-top: 2px">{{localize "TA.Mission.AnomalyBehavior"}}</div>
+              <div>
+                <textarea name="system.behavior">{{system.behavior}}</textarea>
+              </div>
+              <div class="articulat-bold" style="margin-top: 2px">{{localize "TA.AnomalyFocus"}}</div>
+              <div>
+                <textarea name="system.focus">{{system.focus}}</textarea>
+              </div>
+              <div class="articulat-bold" style="margin-top: 2px">{{localize "TA.AnomalyDomain"}}</div>
+              <div>
+                <textarea name="system.domain">{{system.domain}}</textarea>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <fieldset class="agency">
+            <legend class="context-competency">{{localize "TA.Mission.FinalGrade"}}</legend>
+            <div class="articulat-bold color-red" style="font-size: 1.4em; text-align: center">
+              {{#if isGM}}
+                <input name="system.finalgrade" type="text" value="{{system.finalgrade}}"
+                  style="text-transform:uppercase"
+                  maxlength="3"
+                />
+              {{else}}
+                &nbsp;{{system.finalgrade}}&nbsp;
+              {{/if}}
+            </div>
+          </fieldset>
+        </div>
+
+        <div style="margin-top: 15px">
+          <fieldset class="agency">
+            <legend class="context-competency">{{localize "TA.Mission.Paperwork"}}</legend>
+            <div style="text-align: center">
+              {{#if isGM}}
+              <select name="system.paperwork">
+                {{selectOptions extra.paperworkStatus selected=system.paperwork valueAttr="id" labelAttr="name" localize=true}}
+              </select>
+              {{else}}
+                {{extra.paperwork}}
+              {{/if}}
+            </div>
+          </fieldset>
+        </div>
+
+        <div style="margin-top: 15px">
+          <fieldset class="agency">
+            <legend class="context-competency">{{localize "TA.Mission.MVP"}}</legend>
+            <div>
+              {{#if isGM}}
+              <select name="system.mvp">
+                {{selectOptions extra.awardTeam selected=system.mvp valueAttr="id" labelAttr="name" localize=false}}
+              </select>
+              {{else}}
+                {{extra.mvpName}}
+              {{/if}}
+            </div>
+          </fieldset>
+        </div>
+
+        <div style="margin-top: 15px">
+          <fieldset class="agency">
+            <legend>{{localize "TA.Mission.Probation"}}</legend>
+            <div>
+              {{#if isGM}}
+              <select name="system.probation">
+                {{selectOptions extra.awardTeam selected=system.probation valueAttr="id" labelAttr="name" localize=false}}
+              </select>
+              {{else}}
+                {{extra.probationName}}
+              {{/if}}
+            </div>
+          </fieldset>
+        </div>
+
+        <div style="margin-top: 15px">
+          <fieldset class="agency">
+            <legend>
+              {{localize "TA.Mission.IncidentTeam"}}
+              {{#if isGM}}
+              <i id="importTeam" class="fa-solid fa-file-import"
+                title="{{localize "TA.Mission.ImportTeam"}}"
+                style="margin-left: 4px; cursor: pointer; vertical-align: middle"
+              ></i>
+              {{/if}}
+            </legend>
+            <div style="height: 148px; oveflow: auto">
+              {{#each extra.team}}
+                <div data-id="{{this.id}}" style="margin-bottom: 5px">
+                  {{this.name}}
+                </div>
+              {{/each}}
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 15px; display: grid; grid-template-columns: 1fr 2fr; gap: 10px">
+      <div>
+        <fieldset class="agency">
+          <legend class="context-competency">
+            {{localize "TA.Agent.MissionObjectives"}}
+            {{#if isGM}}
+              <i id="addObjective" class="fa-solid fa-square-plus"
+                title="{{localize "TA.Mission.AddObjective"}}"
+                style="margin-left: 4px; cursor: pointer; vertical-align: middle"
+              ></i>
+            {{/if}}
+          </legend>
+          <div style="height: 275px; overflow-y: auto">
+            {{#if isGM}}
+              <div style="display: grid; grid-template-columns: auto 18px 2fr; gap: 10px 2px; margin-top: 5px">
+              {{#each extra.objectives}}
+                <div>
+                  <i class="deleteObjective fa-solid fa-trash fa-sm color-grey-light" data-id="{{this.id}}" style="cursor: pointer"></i>
+                  <input name="system.objectives.{{this.id}}.value" type="number" value="{{this.value}}"
+                    min="1" max="20" maxLength="2" oninput="this.value=this.value.slice(0,this.maxLength)"
+                    style="width: 25px; margin-left: 2px; height: 16px; text-align: center"
+                  />
+                </div>
+                <div class="objectiveType" data-id="{{this.id}}">
+                  <img src="systems/triangleagency/assets/icons/{{this.type}}-icon.png" style="width: 18px; border: none"/>
+                </div>
+                <div>
+                  <span class="objectiveDesc" data-id="{{this.id}}" class="textarea" role="textbox"
+                    style="display: block; padding: 2px" contenteditable>{{this.description}}</span>
+                </div>
+              {{/each}}
+              </div>
+            {{else}}
+              <ul style="margin: 0">
+              {{#each extra.objectives}}
+                <li style="margin-bottom: 6px">{{{this.display}}}</li>
+              {{/each}}
+              </ul>
+            {{/if}}
+          </div>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="agency">
+          <legend class="context-competency">
+            {{localize "TA.looseends"}}
+            {{#unless system.resolved}}
+            <i id="addLooseEnd" class="fa-solid fa-square-plus"
+              title="{{localize "TA.Mission.AddLooseEnd"}}"
+              style="margin-left: 4px; cursor: pointer; vertical-align: middle"
+            ></i>
+            {{/unless}}
+          </legend>
+          <div style="height: 270px; margin-top: 5px; overflow-y: auto">
+            <div style=" display: grid; grid-template-columns: {{#if isGM}}14px{{/if}} 150px 20px auto; gap: 6px 0">
+              {{#each extra.looseends}}
+                {{#if ../isGM}}
+                <div>
+                  <i class="deleteLooseEnd fa-solid fa-trash fa-sm color-grey-light" data-id="{{this.id}}" style="margin-top: 2px; vertical-align: middle; cursor: pointer"></i>
+                </div>
+                {{/if}}
+                <div>
+                  <input name="system.looseends.{{this.id}}.name" type="text" value="{{this.name}}"
+                    style="height: 16px; margin: 2px 0 0 2px"
+                  />
+                </div>
+                <div>
+                  <input name="system.looseends.{{this.id}}.value" type="number" value="{{this.value}}"
+                    min="1" max="9" maxLength="1" oninput="this.value=this.value.slice(0,this.maxLength)"
+                    style="width: 20px; margin: 2px 0 0 2px; height: 16px; text-align: center"
+                  />
+                </div>
+                <div>
+                  <span class="looseEndDesc" data-id="{{this.id}}" class="textarea" role="textbox"
+                    style="display: block; padding: 2px" contenteditable>{{this.description}}</span>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+  </div>
+</form>

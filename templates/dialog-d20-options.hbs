@@ -1,0 +1,20 @@
+<div class="color-background-white" style="width: 450px; padding: 5px; border: 1px solid #C8202F">
+  <div>
+    You must pay 1 Quality Assurance to use <span class="articulat-bold color-red">Skill: Check!</span> Choose the QA that you want to pay from.
+  </div>
+  <div style="margin-top: 10px; text-align: center">
+    <select name="payFrom" style="width: 160px">
+      {{selectOptions payWith valueAttr="qa" labelAttr="name"}}
+    </select>
+  </div>
+  <div style="margin: 10px 0">
+    Choose a Quality relevant to the skillset you desire. Your current QA total in that Quality
+    will be added to the number rolled. However, if the number rolled is a 7, you will lose all
+    your QAs in that Quality.
+  </div>
+  <div style="margin: 10px 0; text-align: center">
+    <select name="riskQA" style="width: 160px">
+      {{selectOptions allQAs valueAttr="qa" labelAttr="name"}}
+    </select>
+  </div>
+</div>

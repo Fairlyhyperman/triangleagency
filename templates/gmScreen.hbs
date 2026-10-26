@@ -1,0 +1,190 @@
+<div class="triangleagency color-background-white" style="color: black; font-size: 10pt; background-image: none; padding: 0">
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 10px; height: 150px">
+    <div>
+      <fieldset class="agency" style="height: 150px">
+        <legend class="context-competency">{{localize "TA.FieldTeam"}}</legend>
+        <div style="overflow: auto">
+          {{#each agents}}
+            <div class="actor articulat-bold" data-type="agent" data-id="{{this.id}}" style="padding: 3px 0; cursor: pointer">{{this.name}}</div>
+          {{/each}}
+        </div>
+      </fieldset>
+      <div style="margin: 10px 2px 0 2px">
+        <div class="gmbutton competence-button" data-type="missionreport">
+          <i class="fa-solid fa-raygun" style="margin-right: 6px"></i>
+          {{localize "TYPES.Item.MissionReport"}}
+        </div>        
+      </div>
+    </div>
+    <div>
+      <fieldset class="agency" style="height: 150px">
+        <legend class="context-anomaly">{{localize "TA.Antagonists"}}</legend>
+        <div style="overflow: auto">
+          {{#each antagonists}}
+            <div style="padding: 3px 0; cursor: pointer">
+              <span class="removeActor color-grey-light" data-id="{{this.id}}" style="margin-right: 4px"><i class="fa-solid fa-trash fa-sm"></i></span>
+              <span class="actor articulat-bold" data-type="antagonist" data-id="{{this.id}}" data-level="{{this.type}}">{{this.name}}</span>
+            </div>
+          {{/each}}
+        </div>
+      </fieldset>
+      <div style="margin: 10px 2px 0 2px">
+        <div class="gmbutton add-button" data-type="weatherreport">
+          <i class="fa-solid fa-cloud-bolt" style="margin-right: 6px"></i>
+          {{localize "TA.WeatherReport"}}
+        </div>        
+      </div>
+    </div>
+    <div>
+      <fieldset class="agency" style="height: 189px">
+        <legend>{{localize "TA.Others"}}</legend>
+        <div style="overflow: auto">
+          {{#each others}}
+            <div style="padding: 3px 0; cursor: pointer">
+              <span class="removeActor color-grey-light" data-id="{{this.id}}" style="margin-right: 4px"><i class="fa-solid fa-trash fa-sm"></i></span>
+              <span class="actor articulat-bold" data-type="other" data-id="{{this.id}}">{{this.name}}</span>
+            </div>
+          {{/each}}
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <div id="context" style="display: none; margin-top: 10px; height: 377px; margin-top: 49px">
+    <fieldset class="agency" style="height: 100%">
+      <legend class="context-competency">
+        <span id="context-name"></span>
+        <span class="actorid" id="context-show" data-id="" style="margin-left: 5px; cursor: pointer"><i class="fa-solid fa-folder"></i></span>
+      </legend>
+
+      <div class="context-data" data-type="weatherreport" style="display: none">
+        <div style="background-color: white; margin: 0 10px 10px 0">
+          <div id="branchweather" style="height: 300px; padding: 0 5px 5px 5px; overflow: auto">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 50px; margin: 10px 30px">
+            <div class="weatherbutton competence-button" data-type="generate">
+              <i class="fa-solid fa-cloud-sun" style="margin-right: 6px"></i>
+              {{localize "TA.GenerateWeather"}}
+            </div>            
+            <div class="weatherbutton competence-button" data-type="clear">
+              <i class="fa-solid fa-rotate-left" style="margin-right: 6px"></i>
+              {{localize "TA.ResetBranchWeather"}}
+            </div>            
+          </div>
+
+        </div>
+      </div>
+
+      <div class="context-data" data-type="other" style="display: none">
+        <div style="display: grid; grid-template-columns: auto auto; gap: 0 10px; height: 180px; padding-top: 5px">
+          <div style="background-color: white; margin: 0 10px 10px 0">
+            <img id="otherImage" src="" style="border: 1px solid grey; max-width: 134px; max-height: 180px"/>
+          </div>
+          <div id="otherDescription" style="overflow: auto"></div>
+        </div>
+        <div id="otherNotes" style="max-height: 150px; margin-top: 15px; overflow: auto"></div>
+      </div>
+
+      <div class="context-data" data-type="antagonist" style="display: none">
+        <div id="majorAnomaly" style="padding: 5px; display: none">
+          <div style="display: grid; grid-template-columns: 67px auto; gap: 0 10px; height: 90px; padding-top: 5px">
+            <div style="background-color: white; margin: 0 10px 10px 0">
+              <img id="majorImage" src="" style="border: 1px solid grey; max-width: 67px; max-height: 90px"/>
+            </div>
+            <div id="majorDescription" style="height: 90px; overflow: auto"></div>
+          </div>
+          <fieldset class="agency" style="margin-top: 15px; height: 60px; overflow: auto">
+            <legend class="context-anomaly">{{localize "TA.AnomalyFocus"}}</legend>
+            <div id="majorFocus" style="overflow: auto"></div>
+          </fieldset>
+          <fieldset class="agency" style="margin-top: 10px; height: 80px; overflow: auto">
+            <legend class="context-anomaly">{{localize "TA.AnomalyImpulse"}}</legend>
+            <div id="majorImpulse" style="overflow: auto"></div>
+          </fieldset>
+          <fieldset class="agency" style="margin-top: 10px; height: 75px; overflow: auto">
+            <legend class="context-anomaly">{{localize "TA.AnomalyDomain"}}</legend>
+            <div id="majorDomain" style="overflow: auto"></div>
+          </fieldset>
+        </div>
+
+        <div id="minorAnomaly" style="padding: 5px; display: none">
+          <div style="display: grid; grid-template-columns: 67px auto; gap: 0 10px; height: 90px; padding-top: 5px">
+            <div style="background-color: white; margin: 0 10px 10px 0">
+              <img id="minorImage" src="" style="border: 1px solid grey; max-width: 67px; max-height: 90px"/>
+            </div>
+            <div>
+              <div class="articulat-bold" style="display: grid; grid-template-columns: 1fr 1fr; gap; 0 20px; font-size: 1.4em; justify-content: center">
+                <div style="justify-self: center">
+                  <span>{{localize "TA.AnomalyThreat"}}</span>
+                  <span id="antagThreat">0</span>
+                </div>            
+                <div style="justify-self: center">
+                  <span>{{localize "TA.AnomalyStability"}}</span>
+                  <span id="antagStability">0</span>
+                </div>            
+              </div>
+              <div style="height: 60px; margin-top: 10px; text-align: center; overflow: auto">
+                <span id="minorDescription" style="display: inline-block; text-align: left"></span>
+              </div>
+            </div>
+          </div>
+          <div id="minorAbilities" style="height: 230px; margin-top: 15px; overflow: auto"></div>
+        </div>
+      </div>
+
+      <div class="actorid context-data" data-id="" data-type="agent" style="display: none">
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 0 10px; padding: 5px 0">
+          <div>
+            <fieldset class="agency" style="height: 78px">
+              <legend class="context-competency">{{localize "TA.Status"}}</legend>
+              <div style="padding-top: 3px; text-align: center">
+                <div id="rank" class="articulat-bold"></div>
+                <div id="standing" class="isagency" style="margin-top: 1px"></div>
+              </div>
+            </fieldset>
+
+            <fieldset class="agency" style="margin-top: 10px; height: 250px">
+              <legend class="context-competency">{{localize "TA.Agent.QualityAssurances"}}</legend>
+              <div id="qas" class="articulat-bold" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px 5px; padding: 5px; font-size: 1.1em"></div>
+            </fieldset>
+          </div>
+          <div>
+            <div>
+              <fieldset class="agency" style="height: 56px">
+                <legend class="context-competency">{{localize "TA.Agent.Performance"}}
+                  <span class="actorid" id="resetMissionMetrics" data-id="" style="margin-left: 10px; cursor: pointer" title="{{localize "TA.Agent.ResetMissionMetrics"}}">
+                    <i class="fa-solid fa-rotate-left"></i>
+                  </span>
+                </legend>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 10px; margin-top: 3px; padding: 0; font-size: 1.4em">
+                  <div style="justify-self: center">
+                    <img src="systems/triangleagency/assets/icons/commendation.png" style="height: 19px; display: inline-block; vertical-align: middle"/>
+                    <span id="commendation" style="display: inline-block; vertical-align: middle; margin: 2px 3px 0 5px">0</span>
+                    (+<span id="missionCommendation" style="display: inline-block; vertical-align: middle; margin-top: 2px">0</span>)
+                  </div>
+                  <div style="justify-self: center">
+                    <img src="systems/triangleagency/assets/icons/demerit.png" style="height: 18px; display: inline-block; vertical-align: middle"/>
+                    <span id="demerit" style="display: inline-block; vertical-align: middle; margin: 2px 3px 0 5px">0</span>
+                    (+<span id="missionDemerit" style="display: inline-block; vertical-align: middle; margin-top: 2px">0</span>)
+                  </div>
+                  <div style="justify-self: center">
+                    <img src="systems/triangleagency/assets/icons/burnout.png" style="margin-left: -3px; height: 18px; display: inline-block; vertical-align: middle"/>
+                    <span id="burnout" style="display: inline-block; vertical-align: middle; margin: 2px 0 0 8px">0</span>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <fieldset class="agency" style="margin-top: 10px; height: 71px; overflow: auto">
+              <legend class="context-competency">{{localize "TA.Agent.PrimeDirective"}}</legend>
+              <div id="prime-directive" style="padding: 5px; overflow: auto"></div>
+            </fieldset>
+            <fieldset class="agency" style="margin-top: 10px; height: 191px; overflow: auto">
+              <legend class="context-reality">{{localize "TA.Reality.RealityTrigger"}}</legend>
+              <div id="reality-trigger" style="padding: 5px; overflow: auto"></div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>

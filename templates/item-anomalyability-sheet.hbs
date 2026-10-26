@@ -1,0 +1,136 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <nav class="flexrow tabbed round" data-group="primary" id="competency-tabs">
+    <ul>
+      <li data-tab="main">
+        <span class="color-blue" style="margin-right: 3px">&#9650;</span>
+        {{localize "TYPES.Item.AnomalyAbility"}}
+      </li>
+    </ul>
+  </nav>
+
+  <div class="tab-content flexrow manilla-folder">
+      <div class="tab active" data-group="primary" data-tab="main">
+        <div class="tab-workarea" style="height: 781px; font-size: 10pt">
+          <div style="display: flex; font-size: 1.8em; width: 100%">
+            <input name="name" type="text" value="{{item.name}}" placeholder="Anomaly name" style="margin-right: 10px;"/>
+            <input name="system.reference" type="text" value="{{system.reference}}"
+              title="{{localize "TA.PlaywallReference"}}"
+              style="width: 50px; text-align: center; background-color: #2752A2; text-transform:uppercase; color: white"
+              oninput="this.value = this.value.toUpperCase();"
+            />
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0 10px; margin-top: 6px; width: 100%">
+            <div style="display: inline-block; vertical-align: middle">
+              <label class="articulat-bold">{{localize "TA.Synopsis"}}</label>
+              <input name="system.synopsis" type="text" value="{{system.synopsis}}" placeholder="Tooltip-level synopsis" style="margin-top: -2px; width: 300px"/>
+            </div>
+
+            <div style="display: inline-block; vertical-align: middle">
+              <label class="articulat-bold">{{localize "TYPES.Item.Anomaly"}}</label>
+              <select name="system.anomaly">
+                {{selectOptions extra.anomalies selected=system.anomaly localize=true}}
+              </select>
+            </div>
+
+            <div style="display: inline-block; vertical-align: middle">
+              <label class="articulat-bold">{{localize "TA.Agent.Quality"}}</label>
+              <select name="system.quality">
+                {{selectOptions extra.qualities selected=system.quality localize=true}}
+              </select>
+            </div>
+          </div>
+
+          <div style="height: 137px; width: 100%; margin-top: 6px">
+            {{editor
+            system.description
+            target="system.description"
+            engine="prosemirror"
+            button=true
+            editable=editable
+            }}
+          </div>
+
+          <div style="display: grid; grid-template-columns: 90px auto 70px 30px; gap: 0 5px; margin: 5px 0; vertical-align: middle">
+            <label class="articulat-bold">{{localize "TA.ChatMessage"}}</label>
+            <input name="system.chat" type="text" value="{{system.chat}}" placeholder="Text displayed in chat"/>
+            <label class="articulat-bold">{{localize "TA.Outcome.AnswerTrackSize"}}</label>
+            <input name="system.track.size" type="number" value="{{system.track.size}}"
+              min="0" max="12" maxLength="2"
+              style="margin-left: 5px; width: 20px; text-align: center; border: none; background-color: white"
+              oninput="this.value=this.value.slice(0,this.maxLength)"
+              onmouseenter="this.focus()"
+              onmouseleave="this.blur()"
+            />
+          </div>
+
+          <div style="margin-bottom: 5px; padding-top: 5px; text-align: center; border-top: 1px solid grey">
+            <div id="add-relationship" class="editOutcome add-button" data-action="add" style="width: 150px; margin: 6px auto">
+              {{localize "TA.Anomaly.AddAbilityOutcome"}}
+            </div>
+          </div>
+
+          <fieldset class="agency" style="margin-top: 10px;">
+            <legend class="context-anomaly">
+              {{localize "TA.Anomaly.AbilityOutcomes"}}
+            </legend>
+            <div style="height: 300px; margin-top: 8px; overflow: auto">
+              <div style="display: grid; grid-template-columns: auto auto;">
+                {{#each extra.outcomes}}
+                <div data-id="{{this.id}}" style="margin: 0 6px 10px 0">
+                  <i data-action="edit" class="editOutcome fa-solid fa-pen-to-square editicon" title="Edit"></i>
+                  <i data-action="delete" class="editOutcome fa-solid fa-trash-can editicon" title="Delete" style="margin-right: 6px"></i>
+                  <b>{{this.label}}</b>,
+                </div>
+                <div style="margin-bottom: 10px">{{{this.description}}}</div>
+                {{/each}}
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="agency" style="width: 100%; margin: 10px 0 8px 0;">
+            <legend class="context-anomaly">
+              {{localize "TA.Outcome.Improvement"}}
+              <i class="addAnswer fa-solid fa-square-plus"
+                style="margin-top: 1px; margin-left: 8px; vertical-align: middle; cursor: pointer" title="{{localize "TA.Anomaly.AddAnswer"}}">
+              </i>
+            </legend>
+            <div style="height: 115px">
+              <div style="margin-top: 4px">
+                <input name="system.improvement.question" type="text"
+                  value="{{system.improvement.question}}" placeholder="Advancement question"
+                />
+              </div>
+
+              <div style="display: grid; grid-template-columns: auto 160px; gap: 0 10px">
+                {{#each system.improvement.answers}}
+                  <div style="margin: 5px 0 0 15px">
+                    <input name="system.improvement.answers.{{@key}}.text" type="text"
+                      value="{{this.text}}" placeholder="Answer"
+                    />
+                  </div>
+                  <div style="margin-top: 5px">
+                    <label class="articulat-bold">{{localize "TA.Outcome.AnswerTrackSize"}}</label>
+                    <input name="system.improvement.answers.{{@key}}.track.size" type="number" value="{{this.track.size}}"
+                      min="0" max="5" maxLength="1"
+                      style="margin-left: 5px; width: 20px; text-align: center; border: none; background-color: white"
+                      oninput="this.value=this.value.slice(0,this.maxLength)"
+                      onmouseenter="this.focus()"
+                      onmouseleave="this.blur()"
+                    />
+                    <span class="color-red" style="margin-top: -1px">&#9654;</span>
+                    <input name="system.improvement.answers.{{@key}}.nextStage" type="text"
+                      value="{{this.nextStage}}" placeholder="??"
+                      style="width: 40px; text-transform:uppercase"
+                      oninput="this.value = this.value.toUpperCase();"
+                    />
+                  </div>
+                {{/each}}
+              </div>
+            </div>
+          </fieldset>
+
+        </div>
+      </div>
+  </div>
+</form>

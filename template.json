@@ -1,0 +1,310 @@
+{
+  "Actor": {
+    "types": ["Agent", "Anomaly", "Bystander"],
+    "templates": {
+      "base": {
+        "description": "",
+        "lock": false
+      }
+    },
+
+    "Bystander": {
+      "templates": [
+        "base"
+      ],
+      "threat": 0,
+      "stability": 1,
+      "currentStability": 1,
+      "notes": "",
+      "gmnotes": ""
+    },
+
+    "Anomaly": {
+      "templates": [
+        "base"
+      ],
+      "type": "major",
+      "focus": "",
+      "impulse": "",
+      "domain": "",
+      "notes": "",
+      "indomain": false,
+      "threat": 0,
+      "stability": 1,
+      "currentStability": 1,
+      "ability": "",
+      "chaosEffects": {},
+      "tracks": {},
+      "hideName": false
+    },
+
+    "Agent": {
+      "templates": [
+        "base"
+      ],      
+      "pronouns": "",
+      "burnout": 0,
+      "burnoutRelease": false,
+      "anomaly": {
+        "type": "",
+        "workLife": {
+          "id": "",
+          "reference": "",
+          "name": "",
+          "description": "",
+          "size": 30,
+          "value": 0,
+          "strikes": 0,
+          "milestones": {}
+        }
+      },
+      "reality": {
+        "type": "",
+        "personal": "",
+        "workLife": {
+          "id": "",
+          "reference": "",
+          "name": "",
+          "description": "",
+          "size": 30,
+          "value": 0,
+          "strikes": 0,
+          "milestones": {}
+        },
+        "triggerValue": 0,
+        "relationships": {}
+      },
+      "competency": {
+        "type": "",
+        "primeDirective": "",
+        "workLife": {
+          "id": "",
+          "reference": "",
+          "name": "",
+          "description": "",
+          "size": 30,
+          "value": 0,
+          "strikes": 0,
+          "milestones": {}
+        }
+      },
+      "agency": {
+        "standing": 0,
+        "commendations": 0,
+        "demerits": 0,
+        "career": {
+          "commendations": 0,
+          "demerits": 0
+        },
+        "time": 0
+      },
+      "qa": {
+        "attentiveness": {
+          "max": 0,
+          "value": 0
+        },
+        "duplicity": {
+          "max": 0,
+          "value": 0
+        },
+        "dynamism": {
+          "max": 0,
+          "value": 0
+        },
+        "empathy": {
+          "max": 0,
+          "value": 0
+        },
+        "initiative": {
+          "max": 0,
+          "value": 0
+        },
+        "persistence": {
+          "max": 0,
+          "value": 0
+        },
+        "presence": {
+          "max": 0,
+          "value": 0
+        },
+        "professionalism": {
+          "max": 0,
+          "value": 0
+        },
+        "subtlety": {
+          "max": 0,
+          "value": 0
+        }
+      },
+      "achievementsLocked": true,
+      "achievements": {
+        "anomaly": {},
+        "reality": {},
+        "competency": {},
+        "other": {}
+      },
+      "gmNotes": "",
+      "mission": {
+        "commendations": 0,
+        "demerits": 0,
+        "sanctionedBehaviors": {}
+      }
+    }
+  },
+
+  "Item": {
+    "types": ["Anomaly", "AnomalyAbility", "Reality", "Competency", "Requisition", "ChaosEffect", "MissionReport", "ConnectionBenefit", "Sponsorship"],
+    "templates": {},
+
+    "Sponsorship": {
+      "requirements": {}
+    },
+
+    "Anomaly": {
+      "description": "",
+      "abilities": []
+    },
+
+    "ChaosEffect": {
+      "cost": 1,
+      "description": ""
+    },
+
+    "AnomalyAbility": {
+      "description": "",
+      "chat": "",
+      "synopsis": "",
+      "anomaly": "",
+      "reference": "",
+      "quality": "",
+      "outcomes": {},
+      "track": {
+        "id": "",
+        "reference": "",
+        "name": "",
+        "description": "",
+        "size": 0,
+        "value": 0,
+        "strikes": 0,
+        "milestones": {}
+      },
+      "improvement": {
+        "question": "",
+        "practiced": false,
+        "visible": false,
+        "answers": {
+          "answer1": {
+            "text": "",
+            "track": {
+              "id": "",
+              "reference": "",
+              "name": "",
+              "description": "",
+              "size": 3,
+              "value": 0,
+              "strikes": 0,
+              "milestones": {}
+            },
+            "nextStage": ""
+          },
+          "answer2": {
+            "text": "",
+            "track": {
+              "id": "",
+              "reference": "",
+              "name": "",
+              "description": "",
+              "size": 3,
+              "value": 0,
+              "strikes": 0,
+              "milestones": {}
+            },
+            "nextStage": ""
+          }
+        }
+      }
+    },
+
+    "Competency": {
+      "description": "",
+      "primeDirectiveBlurb": "",
+      "primeDirective": "",
+      "sanctionedBehaviors": {
+        "act1": "",
+        "act2": "",
+        "act3": ""
+      },
+      "initialRequisition": ""
+    },
+
+    "Reality": {
+      "description": "",
+      "burnoutRelease": {
+        "blurb": "",
+        "description": ""
+      },
+      "realityTrigger": {
+        "blurb": "",
+        "description": "",
+        "track": {
+          "id": "",
+          "name": "",
+          "description": "",
+          "size": 5,
+          "milestones": {
+            "5": "X"
+          }
+        }
+      },
+      "relationships": {
+        "question1": "",
+        "question2": "",
+        "question3": ""
+      }
+    },
+
+    "Requisition": {
+      "reference": "",
+      "cost": 0,
+      "description": "",
+      "totalUses": 1,
+      "missionUses": 1,
+      "used": 0,
+      "notes": "",
+      "unlimited": false
+    },
+
+    "MissionReport": {
+      "resolved": false,
+      "status": "",
+      "otherstatus": "",
+      "alias": "",
+      "behavior": "",
+      "focus": "",
+      "domain": "",
+      "agents": {},
+      "mvp": "",
+      "probation": "",
+      "finalgrade": "",
+      "paperwork": "incomplete",
+      "looseends": {},
+      "objectives": {}
+    },
+
+    "ConnectionBenefit": {
+      "description": ""
+    }
+  },
+
+  "JournalEntryPage": {
+    "types": ["Playwall"],
+    "Playwall": {
+      "htmlFields": [
+        "content"
+      ],
+      "filePathFields": {
+        "img": ["IMAGE"]
+      }      
+    }
+  }
+}

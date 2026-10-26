@@ -1,0 +1,101 @@
+{
+  "id": "triangleagency",
+  "title": "Triangle Agency",
+  "description": "Foundry VTT implementation of Triangle Agency",
+  "authors": [
+    {
+      "name": "Fairlyhyperman",
+      "email": "mac@jdrpg.com",
+      "discord": "Fairlyhyperman"
+    },
+    {
+      "name": "Rhodocros",
+      "discord": "Rhodocros"
+    },
+    {
+      "name": "arcadio21",
+      "discord": "arcadio21"
+    }
+  ],
+  "url": "https://www.twincitiesrpg.com/mystyldyne/triangleagency",
+  "license": "https://www.twincitiesrpg.com/mystyldyne/triangleagency",
+  "readme": "https://www.twincitiesrpg.com/mystyldyne/triangleagency",
+  "bugs": "",
+  "changelog": "https://www.twincitiesrpg.com/mystyldyne/triangleagency/updates.html",
+  "version": "1.3.02",
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14.367"
+  },
+  "scripts": [],
+  "esmodules": [
+    "module/triangleagency.js"
+  ],
+  "styles": [
+    "styles/triangleagency.css"
+  ],
+  "packs": [
+    {
+      "name": "actor-minor-anomalies",
+      "label": "Antagonists",
+      "path": "packs/actor-minor-anomalies.db",
+      "entity": "Actor",
+      "type": "Actor",
+      "package": "triangleagency"
+    },
+    {
+      "name": "item-agency-data",
+      "label": "Agency Data",
+      "path": "packs/item-agency-data.db",
+      "entity": "Item",
+      "type": "Item",
+      "package": "triangleagency"
+    },
+    {
+      "name": "journalentry-gm-documents",
+      "label": "GM Documents",
+      "path": "packs/journalentry-gm-documents.db",
+      "entity": "JournalEntry",
+      "type": "JournalEntry",
+      "package": "triangleagency"
+    }
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "it",
+      "name": "Italian",
+      "path": "lang/it.json"
+    }
+  ],
+  "relationships": {
+    "requires": [],
+    "conflicts": []
+  },
+  "socket": true,
+  "manifest": "https://www.twincitiesrpg.com/mystyldyne/triangleagency/system.json",
+  "download": "https://www.twincitiesrpg.com/mystyldyne/triangleagency/triangleagency.zip",
+  "background": "",
+  "initiative": "",
+  "grid": {
+    "type": 1,
+    "distance": 1,
+    "units": "m",
+    "diagonals": 4
+  },
+  "primaryTokenAttribute": "<optionally the attribute to use as primary resource in tokens by default>",
+  "secondaryTokenAttribute": "<optionally the attribute to use as secondary resource in tokens by default>",
+  "media": [{
+    "type": "cover",
+    "url": "https://www.twincitiesrpg.com/mystyldyne/triangleagency/system-background.webp"
+  },
+  {
+    "type":"setup",
+    "url": "systems/triangleagency/assets/system-background.webp",
+    "thumbnail": "systems/triangleagency/assets/system-background.webp"
+  }]
+}

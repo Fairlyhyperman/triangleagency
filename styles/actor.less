@@ -1,0 +1,187 @@
+.triangleagency.sheet.actor {
+  min-height: 400px;
+  max-height: 95%;
+  min-width: 780px;
+  margin: 0px;
+  padding: 0px;
+  background: @sheet-background-transparent;
+
+  header.window-header {
+    background-color: @color-ta-red;
+  }
+
+
+  div.paperclip {
+    z-index: 2; 
+    position: absolute;
+    width: 30px;
+    top: 64px; 
+    left: 21px;
+  }
+
+  div.characterImage {
+    -ms-transform: rotate(1deg); /* IE 9 */
+    -webkit-transform: rotate(1deg); /* Chrome, Safari, Opera */
+    transform: rotate(1deg);
+    -moz-box-shadow: 3px 3px 1px @manilla-dark;
+    -webkit-box-shadow: 3px 3px 1px @manilla-dark;
+    box-shadow: 3px 3px 1px @manilla-dark;
+    //border: 12px solid #ffffcc;
+    z-index: 1; 
+    position: relative;
+  }
+
+
+  .agent-container {
+    display: grid;
+    grid-template-columns: 160px auto 200px;
+    grid-template-rows: auto auto;
+    gap: 5px 5px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "agent-image agent-middle agent-right"
+      "agent-bottom agent-bottom agent-right";
+  }
+  .agent-image { grid-area: agent-image; }
+  
+  .agent-middle { grid-area: agent-middle; }
+  
+  .agent-right { grid-area: agent-right; }
+  
+  .agent-bottom { grid-area: agent-bottom; }
+
+
+  label.qa-label {
+    font-family: "Articulat CF Bold";
+    font-size: 1.1em;
+  }
+
+  .qa-check {
+    cursor: pointer;
+  }
+  
+  .qa-pip-values {
+    font-family: "Articulat CF Bold";
+    float: right;
+
+    input {
+      width: 20px;
+      text-align: center;
+    }
+  }
+
+  .qa-pips {
+    font-size: 20pt;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: @color-grey-light;
+  }
+
+  .qa-pip {
+    margin-left: -15px;
+    cursor: pointer;
+  }
+
+  .qa-pip-active {
+    color: @color-ta-red;
+  }
+
+  .anomaly-container {
+    display: grid;
+    grid-template-columns: 160px auto;
+    grid-template-rows: 1fr 1fr;
+    gap: 5px 5px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "anomaly-image anomaly-right"
+      "anomaly-below anomaly-below";
+  }
+
+  div.anomalyStats {
+    padding: 5px;
+    border: thick solid @color-ta-blue;
+    border-radius: 5px;
+    background-color: @color-ta-white;
+  }
+  
+  .anomaly-image { grid-area: anomaly-image; }
+  
+  .anomaly-right { grid-area: anomaly-right; }
+  
+  .anomaly-below { grid-area: anomaly-below; }
+
+  .worklife-box {
+    float: left;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .worklife-playwall {
+    border-width: thick;
+  }
+
+  .worklife-line {
+    float: left;
+    margin: 0;
+    padding: 0;
+  }
+
+  .worklife-struck {
+    border-width: 1px;
+    border-color: @color-grey-light;
+    background-color: @color-grey-light;
+  }
+
+  .realitytrigger-box {
+    float: left;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .usage-box {
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    width: 17px;
+    height: 17px;
+    margin: 0 0 0 6px;
+    padding: 0;
+  }
+
+  .worklife-rank {
+    float: left;
+    //background-color: @color-ta-red;
+    background-color: lightgrey;
+    //color: @color-ta-white;
+    color: @color-text;
+    text-align: center;
+    padding: 2px;
+    overflow: hidden;
+    //text-transform: uppercase;
+  }
+
+  .playwall-box {
+    border-width: thick;
+  }
+
+  select.bonusList {
+    margin: 0;
+    padding: 0;
+    color: @color-ta-white;
+    option {
+      background-color: @color-ta-yellow;
+    }
+  }
+}
+
+.triangleagency.sheet.actor.bystander {
+  min-width: 480px;
+}

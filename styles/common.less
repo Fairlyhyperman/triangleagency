@@ -1,0 +1,807 @@
+
+/* ----------------------------------------- */
+/*  Fonts                                    */
+/* ----------------------------------------- */
+
+.articulat {
+  font-family: "Articulat CF Regular", serif;
+}
+
+.articulat-normal {
+  font-family: "Articulat CF Normal", serif;
+}
+
+.articulat-bold {
+  font-family: "Articulat CF Bold", serif;
+}
+
+/* ----------------------------------------- */
+/*  Colors                                   */
+/* ----------------------------------------- */
+
+.color-blue {
+  color: @color-ta-blue;
+}
+.color-yellow {
+  color: @color-ta-yellow;
+}
+.color-red {
+  color: @color-ta-red;
+}
+.color-green {
+  color: @color-ta-green;
+}
+.color-purple {
+  color: @color-ta-purple;
+}
+.color-white {
+  color: @color-ta-white;
+}
+.color-grey {
+  color: @color-grey;
+}
+.color-grey-light {
+  color: @color-grey-light;
+}
+.color-text {
+  color: @color-text;
+}
+
+
+.color-background-blue,
+.color-background-anomaly {
+  background-color: @color-ta-blue;
+}
+
+.color-border-blue,
+.color-border-anomaly {
+  border-color: @color-ta-blue;
+}
+
+.color-background-red,
+.color-background-competency,
+.color-background-requisition,
+.color-background-agency {
+  background-color: @color-ta-red;
+}
+
+.color-border-red,
+.color-border-competency {
+  border-color: @color-ta-red;
+}
+
+.color-background-yellow,
+.color-background-reality {
+  background-color: @color-ta-yellow;
+}
+
+.color-background-dark,
+.color-background-undefined {
+  background-color: @color-dark;
+}
+
+.color-background-green {
+  background-color: @color-ta-green;
+}
+
+.color-background-white {
+  background-color: @color-ta-white;
+}
+
+div, span {
+  .isagency {
+    font-family: "Articulat CF Bold", serif;
+    color: @color-ta-red;
+  }
+}
+
+/* ----------------------------------------- */
+/*  Generics                                 */
+/* ----------------------------------------- */
+
+.dialog {
+  background-color: @color-ta-white;
+  color: @color-text;
+  header {
+    background-color: @color-ta-purple;
+    color: @color-ta-white;
+    .window-title {
+      margin: 0;
+      padding: 0;
+      color: @color-ta-white;
+    }
+  }
+  select {
+    background-color: inherit;
+    color: inherit;
+    border: 1px solid grey;
+  }
+  button {
+    background-color: #E5E4E2;
+    color: inherit;
+    font-weight: bold;
+  }
+}
+
+.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  i {
+    cursor: default;
+  }
+}
+
+.displayarea {
+  border: 1.5px solid @color-gray-dark;
+  border-radius: 3px;
+  padding: 5px;
+  font-family: "Articulat CF Regular";
+  font-size: 10pt;
+  background-color: @sheet-background-light;
+}
+
+img {
+  border: none;
+}
+
+p, div {
+  .center {
+    text-align: center;
+    place-content: center;
+    justify-items: center;
+  }
+}
+
+h1, .h1 {
+  font-size: 1.4em;
+  font-family: "Articulat CF Bold", serif;
+  border: none;
+  margin: 20px 0 0 0;
+  padding: 0;
+  color: @color-ta-red;
+}
+
+h2, .h2 {
+  font-size: 1.2em;
+  font-family: "Articulat CF Bold", serif;
+  border: none;
+  margin: 20px 0 0 0;
+  padding: 0;
+  color: @color-ta-blue;
+} 
+
+.playwallLink {
+  cursor: pointer;
+}
+
+
+.anomalyAbility {
+  ul {
+    margin-top: 0;
+  }
+}
+
+div.faceSelect {
+  background-color: @color-ta-red;
+  color: white;
+}
+
+
+/* ----------------------------------------- */
+/*  TinyMCE                                  */
+/* ----------------------------------------- */
+
+.editor {
+  height: 100%;
+  font-size: 10pt;
+  .tox-toolbar-overlord,
+  .tox-toolbar__primary {
+    background: none;
+  }
+
+  .editor-container {
+    padding: 0;
+    margin: 2px;
+  }
+
+  .editor-content {
+    padding: 0;
+    margin: 0;
+  }
+
+  .pm-dropdown.fonts {
+    display: none;
+  }
+}
+
+
+/* ----------------------------------------- */
+/*  Foundry override                         */
+/* ----------------------------------------- */
+
+a.document-id-link {
+  padding-left: 5px;
+  //display: none;
+}
+
+
+/* ----------------------------------------- */
+/*  Blink                                    */
+/* ----------------------------------------- */
+
+.blink {
+  animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+  25% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.5;
+  }
+}
+
+
+/* ----------------------------------------- */
+/*  GM Screen                                 */
+/* ----------------------------------------- */
+
+.GMScreen {
+  background-color: @sheet-background-light;
+  background-image: none;
+  border: 2px solid @color-ta-red;
+
+  .window-header {
+    text-align: center;
+    background-color: @color-ta-red;
+  }
+  .window-title {
+    color: @color-ta-white;
+    margin: 0;
+    font-size: 11pt;
+  }
+  .window-content {
+    padding: 10px;
+  }
+}
+
+
+/* ----------------------------------------- */
+/*  Player Screen                            */
+/* ----------------------------------------- */
+
+.PlayerScreen {
+  background-color: @sheet-background-light;
+  background-image: none;
+  border: 2px solid @color-ta-yellow;
+
+  .window-header {
+    text-align: center;
+    background-color: @color-ta-yellow;
+  }
+  .window-title {
+    margin: 0;
+    color: @color-ta-white;
+    font-size: 11pt;
+  }
+  .window-content {
+    padding: 10px;
+  }
+}
+
+/* ----------------------------------------- */
+/*  Player Screen                            */
+/* ----------------------------------------- */
+
+.PlayerScreen {
+  background-color: @sheet-background-light;
+  background-image: none;
+  border: 2px solid @color-ta-yellow;
+
+  .window-header {
+    text-align: center;
+    background-color: @color-ta-yellow;
+  }
+  .window-content {
+    padding: 10px;
+  }
+}
+
+
+/* ----------------------------------------- */
+/*  AgencyOS                                 */
+/* ----------------------------------------- */
+
+.agencyOs {
+  background-color: @sheet-background-light;
+  background-image: none;
+  border: 2px solid @color-ta-red;
+
+  .window-header {
+    display: none;
+  }
+  .window-content {
+    padding: 10px;
+  }
+}
+
+
+/* ----------------------------------------- */
+/*  Dice                                     */
+/* ----------------------------------------- */
+
+.d4 {
+  border: none;
+  width: 40px;
+}
+
+.actionable {
+  cursor: pointer;
+}
+
+
+/* ----------------------------------------- */
+/*  Triangle Agency                          */
+/* ----------------------------------------- */
+
+.backgroundSolid {
+  background: @color-grey;
+}
+
+.triangleagency {
+  header.window-header {
+    background-color: @sheet-header;
+  }
+
+  .window-content {
+    font-size: 12px;
+    color: @color-text;
+    background: @sheet-background-hazy;
+  }
+  
+  /* ----------------------------------------- */
+  /*  Icons                                    */
+  /* ----------------------------------------- */
+
+  .editicon {
+    color: #708090;
+    cursor: pointer;
+  }
+  
+  /* ----------------------------------------- */
+  /*  Element Styles                           */
+  /* ----------------------------------------- */
+
+  div.para {
+    margin-top: 10px;
+  }
+
+  span.highlightBlue {
+    border: 0.5px solid @color-ta-blue;
+    border-radius: 3px;
+    background-color: @color-ta-blue;
+    color: white;
+    padding: 0 2px;
+  }
+
+  span.highlightRed {
+    border: 0.5px solid @color-ta-red;
+    border-radius: 3px;
+    background-color: @color-ta-red;
+    color: white;
+    padding: 0 2px;
+  }
+
+  label {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 2px;
+  }
+
+  select {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select {
+    height: calc(100% - 2px);
+    //border: 1px solid @color-tan;
+    border: inherit;
+    //box-shadow: inherit;
+    background: rgba(0, 0, 0, 0);
+    //color: @color-text;
+  }
+
+  input.header {
+    color: @color-ta-red;
+    font-weight: bold;
+  }
+
+  li::marker {
+    color: @color-ta-red;
+    font-size: 1.4em;
+  }
+
+  div.tab-workarea {
+    border: 1.5px solid @color-gray-dark;
+    border-radius: 3px;
+    padding: 5px;
+    font-family: "Articulat CF Regular";
+    font-size: 10pt;
+    background-color: @sheet-background-light;
+  }
+
+  div.notes {
+    border: 1.5px solid @color-gray-dark;
+    border-radius: 3px;
+    padding: 2px 5px 5px 5px;
+    font-family: "Articulat CF Regular";
+    font-size: 10pt;
+    background-color: @sheet-background-light;
+  }
+
+  textarea {
+    font-family: inherit;
+    font-size: inherit;    
+    resize: none;
+    border: none;
+    padding: 2px;
+    background: rgba(0, 0, 0, 0);
+  }
+
+  .competence-button {
+    font-size: 10pt;
+    background-color: @color-ta-red;
+    border: 1px solid @color-ta-red;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    color: @color-ta-white;
+    cursor: pointer;
+  }
+
+  .add-button {
+    font-size: 10pt;
+    background-color: @color-ta-green;
+    border: 1px solid @color-ta-green;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    color: @color-ta-white;
+    cursor: pointer;
+  }
+
+  .dropdown {
+    display: inline-block;
+    position: relative;
+  }
+
+  .dropdown-button {
+    font-size: 10pt;
+    background-color: @color-ta-green;
+    border: 1px solid @color-ta-green;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    color: @color-ta-white;
+    cursor: pointer;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    width: 100%;
+    overflow: auto;
+    background-color: @color-ta-white;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content div {
+    display: block;
+    color: @color-dark;
+    padding: 5px;
+    text-decoration: none;
+  }
+
+  .dropdown-content div:hover {
+    color: @color-ta-white;
+    background-color: @color-ta-green;
+  }
+
+
+  /* ----------------------------------------- */
+  /*  toggle switch                            */
+  /* ----------------------------------------- */
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 17px;
+  }
+
+  // Hide default HTML checkbox
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: @color-ta-white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: @color-ta-green;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px @color-ta-green;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+  }
+  
+  .slider.round {
+    border-radius: 17px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }  
+
+  /* ----------------------------------------- */
+  /*  fieldset                                  */
+  /* ----------------------------------------- */
+
+  fieldset.agency {
+    border: 1.5px solid @color-gray-dark;
+    border-radius: 3px;
+    padding: 2px 5px 5px 5px;
+    font-family: "Articulat CF Regular";
+    font-size: 10pt;
+    background-color: @sheet-background-light;
+
+    legend {
+      background-color: @color-ta-purple;
+      color: @color-ta-white;
+      border: 1.5px solid @color-ta-purple;
+      border-radius: 5px;
+      font-family: "Articulat CF Normal";
+      font-size: 11pt;
+      width: 100%;
+      text-align: center;
+      padding: 1px 2px 0 4px;
+      vertical-align: middle;
+    }
+
+    legend.context-anomaly {
+      background-color: @color-ta-blue;
+      border-color: @color-ta-blue;
+    }
+
+    legend.context-reality {
+      background-color: @color-ta-yellow;
+      border-color: @color-ta-yellow;
+    }
+
+    legend.context-green {
+      background-color: @color-ta-green;
+      border-color: @color-ta-green;
+    }
+
+    legend.context-clickable {
+      background-color: @color-ta-green;
+      border-color: @color-ta-green;
+      cursor: pointer;
+    }
+
+    legend.context-competency {
+      background-color: @color-ta-red;
+      border-color: @color-ta-red;
+    }
+  }
+
+
+  /* ----------------------------------------- */
+  /*  Track                                    */
+  /* ----------------------------------------- */
+
+  .track-box {
+    float: left;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center; // vertical alignment 
+    justify-content: center; // horizontal alignment
+  }
+
+  .track-milestone {
+    border-width: thick;
+  }
+
+  .track-line {
+    float: left;
+    margin: 0;
+    padding: 0;
+  }
+
+  .track-struck {
+    border-width: 1px;
+    border-color: @color-grey-light;
+    background-color: @color-grey-light;
+  }
+
+  .track-checked {
+    background-color: currentColor;
+    font-size: 0.55vw;
+    border-width: 1px;
+  }
+
+  .track-action {
+    cursor: pointer;
+  }
+
+
+  /* ----------------------------------------- */
+  /*  tabbed                                  */
+  /* ----------------------------------------- */
+
+  .tabbed {
+    width: 100%;
+    min-width: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+    transition: border 250ms ease;
+    background: @sheet-background-transparent;
+  }
+
+  .tabbed ul {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    float: left;
+    //padding-left: 48px;
+    padding-left: 24px;
+    list-style-type: none;
+  }
+
+  .tabbed ul * {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .tabbed ul li {
+    display: block;
+    float: right;
+    //padding: 10px 24px 8px;
+    padding: 8px 12px 6px;
+    background-color: @manilla-dark;
+    //margin-right: 46px;
+    margin-right: 23px;
+    z-index: 2;
+    position: relative;
+    cursor: pointer;
+    color: black;
+
+    text-transform: uppercase;
+    font: 10 13px/20px "Articulat CF Bold";
+    transition: all 250ms ease;
+  }
+
+  .tabbed ul li:before,
+  .tabbed ul li:after {
+    display: block;
+    content: " ";
+    position: absolute;
+    top: 0;
+    height: 100%;
+    //width: 44px;
+    width: 22px;
+    background-color: @manilla-dark;
+    transition: all 150ms ease;
+  }
+
+  .tabbed ul li:before {
+    //right: -24px;
+    right: -12px;
+    transform: skew(30deg, 0deg);
+    box-shadow: rgba(0,0,0,.1) 3px 2px 5px, inset rgba(255,255,255,.09) -1px 0;
+  }
+
+  .tabbed ul li:after {
+    //left: -24px;
+    left: -12px;
+    transform: skew(-30deg, 0deg);
+    box-shadow: rgba(0,0,0,.1) -3px 2px 5px, inset rgba(255,255,255,.09) 1px 0;
+  }
+
+  .tabbed ul li:hover,
+  .tabbed ul li:hover:before,
+  .tabbed ul li:hover:after {
+    background-color: @manilla-dark;
+    color: #660000;
+  }
+
+  .tabbed ul li.active {
+    z-index: 3;
+  }
+
+  .tabbed ul li.active,
+  .tabbed ul li.active:before,
+  .tabbed ul li.active:after {
+    background-color: @manilla-light;
+    font: 50 13px/20px "Articulat CF Bold", serif;
+    color: black;
+  }
+
+  .tabbed.round ul li {
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tabbed.round ul li:before {
+    border-radius: 0 5px 0 0;
+  }
+
+  .tabbed.round ul li:after {
+    border-radius: 5px 0 0 0;
+  }
+
+  div.manilla-folder {
+    border: 4px solid @manilla-light;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: @manilla-light;
+  }
+
+  .sidenav ul li.active,
+  .sidenav ul li.active:before,
+  .sidenav ul li.active:after {
+    background-color: #E5E4E2;
+  }
+}
+
+
+.playwallTag {
+  text-align: center;
+  padding: 2px 5px;
+  margin-right: 5px;
+  color: white;
+}

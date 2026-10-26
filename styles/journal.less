@@ -1,0 +1,88 @@
+.triangleagency.playwall {
+  
+  section.window-content {
+    margin: 0px;
+    font-family: "Articulat CF Regular", serif;
+    font-size: 10pt;
+    background: @color-ta-white;
+  }
+
+}
+
+input.incontext {
+  ::placeholder {
+    color: white;
+    opacity: 1; /* Firefox */
+  }
+}
+
+.journal-entry {
+  header.window-header {
+    background-color: @color-ta-red;
+  }
+
+  section.window-content {
+    font-family: "Articulat CF Regular", serif;
+    color: @color-text;
+  }
+
+  .action-buttons {
+    padding-right: 8px;
+  }
+}
+
+.playwallJournal {
+  margin: 0px;
+  padding: 10px 0 10px 10px;
+  background: @color-ta-white;
+
+  .journal-entry-content.displayarea {
+    background-image: none;
+    margin-left: 10px;
+  }
+
+  .pages-list {
+    color: @color-text;
+  }
+
+  .directory-item {
+    border: none;
+    margin: 0;
+    padding: 0;
+    
+  }
+  
+  .level1 {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .level2 {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .page-heading {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .page-title {
+    padding-left: 0px;
+  } 
+
+}
+
+#playwallReference::placeholder {
+  color: @color-grey;
+  font-weight: normal;
+  opacity: 1; /* Firefox */
+}
+
+#playwallReference::-ms-input-placeholder { /* Edge 12 -18 */
+  font-weight: normal;
+  color: @color-grey;
+}
